@@ -5,6 +5,7 @@ const AccountRoutes = [
     title: 'menu.users',
     key: 'users',
     path: 'users/:username',
+    isHide: true,
     component: '@/pages/account/_layout',
     routes: [
       {
@@ -64,7 +65,7 @@ const AccountRoutes = [
         isHide: true,
         component: '@/pages/account/account-edit',
       },
-    ]
+    ],
   },
 ];
 

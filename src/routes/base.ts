@@ -1,8 +1,11 @@
 const BaseRoutes = [
   {
     exact: true,
+    name: '首页',
+    title: 'menu.home',
+    key: 'home',
     path: '/',
-    component: '@/pages/home/index'
+    component: '@/pages/home/index',
   },
   {
     name: '搜索结果',
@@ -62,7 +65,6 @@ const BaseRoutes = [
     isHide: true,
     component: '@/pages/other/sitemap',
   },
-  
 ];
 
 export default BaseRoutes;

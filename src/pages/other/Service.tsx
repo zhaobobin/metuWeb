@@ -1,5 +1,5 @@
 import { Row, Col } from 'antd';
-import ArticleDetailShow from '@/blocks/Article/ArticleDetailShow';
+import ArticleDetailShow from '@/blocks/article/article-detail-show';
 import ServiceHtml from './service-html';
 
 const Service = () => {

@@ -1,16 +1,32 @@
+/**
+ * 导航 - 搜索
+ */
 import React from 'react';
+import { connect, ConnectProps, Dispatch } from 'umi';
+import { RootState } from '@/models/index';
+import { SearchOutlined } from '@ant-design/icons';
 
-export default class Tpl extends React.Component {
+interface IProps extends ConnectProps {
+  dispatch: Dispatch;
+}
 
-  render(){
+interface IState {}
 
-    return(
+const mapStateToProps = (state: RootState) => ({
+  account: state.account,
+  loading: state.loading.models.account,
+});
+const connector = connect(mapStateToProps);
 
-      <div>
-        Tpl
-      </div>
-
-    )
+class Tpl extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+    this.state = {};
   }
 
+  render() {
+    return <div></div>;
+  }
 }
+
+export default connector(Tpl);

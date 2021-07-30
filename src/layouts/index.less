@@ -1,3 +1,60 @@
-.container {
-  padding: 20px;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  touch-action: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+:global {
+  #mtw {
+    a {
+      text-decoration: none;
+    }
+
+    //p{
+    //  margin-bottom: 0;
+    //}
+
+    //form
+    .ant-form-explain {
+      line-height: 30px;
+    }
+    .ant-form-item-control {
+      line-height: 1;
+    }
+
+    .has-error .ant-input:hover {
+      border-color: #fc514f;
+    }
+
+    //input close
+    .anticon-close-circle {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.3s;
+      font-size: 14px;
+      &:hover {
+        color: #999;
+      }
+      &:active {
+        color: #666;
+      }
+    }
+
+    .am-modal-close {
+      cursor: pointer;
+    }
+  }
 }
