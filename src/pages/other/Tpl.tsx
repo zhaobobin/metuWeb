@@ -1,32 +1,52 @@
-/**
- * 导航 - 搜索
- */
 import React from 'react';
-import { connect, ConnectProps, Dispatch } from 'umi';
+import { connect, Dispatch } from 'umi';
+import { ConnectedProps } from 'react-redux';
+import ENV from '@/config/env';
 import { RootState } from '@/models/index';
-import { SearchOutlined } from '@ant-design/icons';
 
-interface IProps extends ConnectProps {
+const mapStateToProps = (state: RootState) => ({
+  global: state.global,
+});
+const connector = connect(mapStateToProps);
+
+type ModelState = ConnectedProps<typeof connector>;
+
+interface IProps extends ModelState {
   dispatch: Dispatch;
 }
 
 interface IState {}
 
-const mapStateToProps = (state: RootState) => ({
-  account: state.account,
-  loading: state.loading.models.account,
-});
-const connector = connect(mapStateToProps);
-
-class Tpl extends React.Component<IProps, IState> {
+class UserSignModal extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {};
   }
 
+  //登录注册modal状态
+  setUserModal(value, key) {
+    this.props.dispatch({
+      type: 'global/changeSignModal',
+      payload: {
+        signModalVisible: value,
+        signTabKey: key,
+      },
+    });
+  }
+
+  loginCallback = () => {
+    this.setUserModal(false, '1');
+  };
+
+  registerCallback = () => {
+    this.setUserModal(false, '2');
+  };
+
   render() {
+    const {} = this.props.global;
+
     return <div></div>;
   }
 }
 
-export default connector(Tpl);
+export default connector(UserSignModal);

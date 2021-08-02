@@ -1,4 +1,5 @@
 import { Loading } from 'umi';
+import global, { IGlobalState } from './global';
 import home, { IHomeState } from './home';
 import article, { IArticleState } from './article';
 import photo, { IPhotoState } from './photo';
@@ -11,6 +12,7 @@ import oss, { IOssState } from './oss';
 import publish, { IPublishState } from './publish';
 
 const models = [
+  global,
   home,
   article,
   photo,
@@ -25,6 +27,7 @@ const models = [
 
 export type RootState = {
   loading: Loading;
+  global: IGlobalState;
   home: IHomeState;
   article: IArticleState;
   photo: IPhotoState;

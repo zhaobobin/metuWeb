@@ -7,11 +7,7 @@ import { Effect, Reducer } from 'umi';
 import { ossApi } from '@/api/index';
 // import { Toast } from '@/components/index';
 import ENV from '@/config/env';
-import {
-  Request,
-  WebStorage as Storage,
-  FetchGet,
-} from 'metu-ui/dist/utils/index';
+import { Request, Storage, FetchGet } from 'metu-ui/dist/utils/index';
 import { notification } from 'antd';
 
 const getClient = function (data) {

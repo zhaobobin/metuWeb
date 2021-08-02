@@ -12,7 +12,7 @@ const Home = (props) => {
 
   const getToken = () => {
     dispatch({
-      type: 'account/token',
+      type: 'global/token',
     });
   };
 

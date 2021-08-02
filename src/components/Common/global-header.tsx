@@ -117,7 +117,7 @@ export default class GlobalHeader extends React.Component<IProps, IState> {
           </Col>
 
           <Col xs={18} sm={18} md={8} lg={8}>
-            {/* <GlobalHeaderSign/> */}
+            {/* <GlobalHeaderSign /> */}
           </Col>
         </Row>
       </div>

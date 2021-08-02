@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import CountDown from '@/components/number/count-down';
-import styles from './Dialog.less';
+import styles from './dialog.less';
 
 const modal_options = {
   width: 430,

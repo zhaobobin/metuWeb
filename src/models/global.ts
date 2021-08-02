@@ -6,14 +6,20 @@ import { Storage } from 'metu-ui/dist/utils/index';
 // import { Toast } from 'antd';
 import { RootState } from './index';
 
-export interface IAccountState {
+export interface IGlobalState {
   isAuth: boolean; // 登录状态
   currentUser: IUserInfo;
+  profileUser: IUserInfo; //其他用户信息
+  lastTel: string;
+  signModalVisible: boolean; //登录modal的显示状态
+  signTabKey: string; //登录modal中tab的默认key
+  theme: any; // 主题
+  readModel: string; // 阅读模式readModel) || 'black',  // 阅读模式
 }
 
-interface UserModel {
+interface GlobalModel {
   namespace: string;
-  state: IAccountState;
+  state: IGlobalState;
   effects: {
     checkMobile: Effect;
     register: Effect;
@@ -31,12 +37,12 @@ interface UserModel {
     resetPsd: Effect;
   };
   reducers: {
-    setState: Reducer<IAccountState>;
+    setState: Reducer<IGlobalState>;
   };
 }
 
-const userModel: UserModel = {
-  namespace: 'account',
+const globalModel: GlobalModel = {
+  namespace: 'global',
 
   state: {
     isAuth: false,
@@ -55,6 +61,26 @@ const userModel: UserModel = {
       create_at: '',
       update_at: '',
     },
+    profileUser: {
+      _id: '',
+      type: '',
+      level: 0,
+      point: 0,
+      status: 0,
+      tags: [],
+      following_number: 0,
+      followers_number: 0,
+      mobile: '',
+      nickname: '',
+      username: '',
+      create_at: '',
+      update_at: '',
+    }, //其他用户信息
+    lastTel: Storage.get(ENV.storage.lastTel) || '',
+    signModalVisible: false, //登录modal的显示状态
+    signTabKey: '', //登录modal中tab的默认key
+    theme: Storage.get(ENV.storage.theme) || {}, // 主题
+    readModel: Storage.get(ENV.storage.lastTel) || '',
   },
 
   effects: {
@@ -239,4 +265,4 @@ const userModel: UserModel = {
   },
 };
 
-export default userModel;
+export default globalModel;
