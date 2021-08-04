@@ -152,7 +152,7 @@ export default class UserRegister extends React.Component {
     // 第三方登录 end!!!
 
     this.props.dispatch({
-      type: 'global/register',
+      type: 'account/register',
       payload: data,
       callback: (res) => {
         if (res.code === 0) {
@@ -199,7 +199,7 @@ export default class UserRegister extends React.Component {
     let { showType } = this.props;
     if (showType) {
       this.props.dispatch({
-        type: 'global/changeSignModal',
+        type: 'account/changeSignModal',
         payload: {
           signModalVisible: true,
           signTabKey: '1',

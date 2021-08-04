@@ -1,14 +1,14 @@
 import { Effect, Reducer } from 'umi';
 import { userApi } from '@/api/index';
-import ENV from '@/config/env';
 import { IUserInfo } from 'metu-ui/dist/types/CommonTypes';
 import { Storage } from 'metu-ui/dist/utils/index';
-// import { Toast } from 'antd';
+import ENV from '@/config/env';
 import { RootState } from './index';
 
 export interface IAccountState {
   isAuth: boolean; // 登录状态
-  currentUser: IUserInfo;
+  currentUser: IUserInfo; // 当前用户信息
+  profileUser: IUserInfo; // 其他用户信息
 }
 
 interface UserModel {
@@ -19,7 +19,7 @@ interface UserModel {
     register: Effect;
     login: Effect;
     token: Effect;
-    smscode: Effect;
+    getSmscode: Effect;
     checkSmscode: Effect;
     logout: Effect;
     queryAccountDetail: Effect;
@@ -35,32 +35,49 @@ interface UserModel {
   };
 }
 
+const initialState = {
+  isAuth: false,
+  currentUser: {
+    _id: '',
+    type: '',
+    level: 0,
+    point: 0,
+    status: 0,
+    tags: [],
+    following_number: 0,
+    followers_number: 0,
+    mobile: '',
+    nickname: '',
+    username: '',
+    create_at: '',
+    update_at: '',
+  },
+  profileUser: {
+    _id: '',
+    type: '',
+    level: 0,
+    point: 0,
+    status: 0,
+    tags: [],
+    following_number: 0,
+    followers_number: 0,
+    mobile: '',
+    nickname: '',
+    username: '',
+    create_at: '',
+    update_at: '',
+  },
+};
+
 const userModel: UserModel = {
   namespace: 'account',
 
-  state: {
-    isAuth: false,
-    currentUser: {
-      _id: '',
-      type: '',
-      level: 0,
-      point: 0,
-      status: 0,
-      tags: [],
-      following_number: 0,
-      followers_number: 0,
-      mobile: '',
-      nickname: '',
-      username: '',
-      create_at: '',
-      update_at: '',
-    },
-  },
+  state: initialState,
 
   effects: {
     *checkMobile({ payload, callback }, { call, put }) {
       const res = yield call(userApi.checkMobile, payload);
-      yield callback(res);
+      callback && callback(res);
     },
 
     *register({ payload, callback }, { call, put }) {
@@ -75,7 +92,7 @@ const userModel: UserModel = {
         });
         Storage.set(ENV.storage.token, res.data.token); //保存token
       }
-      yield callback(res);
+      callback && callback(res);
     },
 
     *login({ payload, callback }, { call, put }) {
@@ -91,7 +108,7 @@ const userModel: UserModel = {
         Storage.set(ENV.storage.lastTel, payload.mobile); //保存token
         Storage.set(ENV.storage.token, res.data.token); //保存token
       }
-      yield callback(res);
+      callback && callback(res);
     },
 
     *token({ payload, callback }, { call, put }) {
@@ -119,14 +136,14 @@ const userModel: UserModel = {
       }
     },
 
-    *smscode({ payload, callback }, { call }) {
+    *getSmscode({ payload, callback }, { call }) {
       const res = yield call(userApi.smscode, payload);
-      yield callback(res);
+      callback && callback(res);
     },
 
     *checkSmscode({ payload, callback }, { call }) {
       const res = yield call(userApi.checkSmscode, payload);
-      yield callback(res);
+      callback && callback(res);
     },
 
     *logout(_, { put }) {
@@ -206,7 +223,7 @@ const userModel: UserModel = {
       } else {
         // Toast.show(res.messge);
       }
-      callback(res);
+      callback && callback(res);
     },
 
     *changeMobile({ payload, callback }, { call }) {
@@ -215,17 +232,17 @@ const userModel: UserModel = {
       } else {
         // Toast.show(res.messge);
       }
-      callback(res);
+      callback && callback(res);
     },
 
     *changePsd({ payload, callback }, { call }) {
       const res = yield call(userApi.changePsd, payload);
-      callback(res);
+      callback && callback(res);
     },
 
     *resetPsd({ payload, callback }, { call }) {
       const res = yield call(userApi.resetPsd, payload);
-      callback(res);
+      callback && callback(res);
     },
   },
 

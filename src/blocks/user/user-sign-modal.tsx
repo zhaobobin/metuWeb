@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Modal } from 'antd';
 import ENV from '@/config/env';
@@ -14,68 +13,58 @@ const mapStateToProps = (state: RootState) => ({
 });
 const connector = connect(mapStateToProps);
 
-interface IProps extends ConnectedProps<typeof connector> {
-  // dispatch: Dispatch;
-}
+interface IProps extends ConnectedProps<typeof connector> {}
 
-interface IState {}
-
-class UserSignModal extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {};
-  }
-
+const UserSignModal = (props: IProps) => {
   //登录注册modal状态
-  setUserModal(value, key) {
-    this.props.dispatch({
+  const setUserModal = (visible: boolean, key: string) => {
+    props.dispatch({
       type: 'global/changeSignModal',
       payload: {
-        signModalVisible: value,
+        signModalVisible: visible,
         signTabKey: key,
       },
     });
-  }
-
-  loginCallback = () => {
-    this.setUserModal(false, '1');
   };
 
-  registerCallback = () => {
-    this.setUserModal(false, '2');
+  const loginCallback = () => {
+    setUserModal(false, '1');
   };
 
-  render() {
-    const { signModalVisible, signTabKey } = this.props.global;
+  const registerCallback = () => {
+    setUserModal(false, '2');
+  };
 
-    return (
-      <Modal
-        title=""
-        width="430px"
-        footer={null}
-        centered={true}
-        maskClosable={false}
-        destroyOnClose={true}
-        visible={signModalVisible}
-        className={styles.userModal}
-        onCancel={() => this.setUserModal(false, '1')}
-      >
-        <div className={styles.content}>
-          <div className={styles.head}>
-            <img src={logo} alt="logo" />
-            <strong>{ENV.info.slogan}</strong>
-          </div>
-          <div className={styles.body}>
-            {signTabKey === '1' ? (
-              <UserLogin showType="modal" callback={this.loginCallback} />
-            ) : (
-              <UserRegister showType="modal" callback={this.registerCallback} />
-            )}
-          </div>
+  const { signModalVisible, signTabKey } = props.global;
+
+  return (
+    <Modal
+      title=""
+      width="430px"
+      footer={null}
+      centered={true}
+      maskClosable={false}
+      destroyOnClose={true}
+      visible={signModalVisible}
+      className={styles.userModal}
+      onCancel={() => setUserModal(false, '1')}
+    >
+      <div className={styles.content}>
+        <div className={styles.head}>
+          <img src={logo} alt="logo" />
+          <strong>{ENV.info.slogan}</strong>
         </div>
-      </Modal>
-    );
-  }
-}
+        <div className={styles.body}>
+          {signTabKey === '1' ? (
+            <UserLogin showType="modal" callback={loginCallback} />
+          ) : (
+            <div></div>
+            // <UserRegister showType="modal" callback={registerCallback} />
+          )}
+        </div>
+      </div>
+    </Modal>
+  );
+};
 
 export default connector(UserSignModal);

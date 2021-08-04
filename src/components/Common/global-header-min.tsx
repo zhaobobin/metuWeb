@@ -19,7 +19,12 @@ const GlobalHeaderMin = (props: IProps) => {
         <Col xs={6} sm={6} md={3} lg={2}>
           <div className={styles.logo}>
             <Link to="/">
-              <img src={logo} width="auto" height="100%" alt={ENV.appname} />
+              <img
+                src={logo}
+                width="auto"
+                height="100%"
+                alt={ENV.info.appname}
+              />
             </Link>
           </div>
         </Col>

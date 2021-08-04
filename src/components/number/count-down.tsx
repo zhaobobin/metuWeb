@@ -2,12 +2,20 @@ import React from 'react';
 
 let timer;
 
-export default class CountDown extends React.Component {
-  constructor(props) {
+interface IProps {
+  num: number;
+  onEnd: () => void;
+}
+
+interface IState {
+  count: number;
+}
+
+export default class CountDown extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
-    this.ajaxFlag = true;
     this.state = {
-      count: null,
+      count: 0,
     };
   }
 

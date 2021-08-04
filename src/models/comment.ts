@@ -75,9 +75,7 @@ const commentModel: CommentModel = {
           },
         },
       });
-      if (callback) {
-        callback();
-      }
+      callback && callback();
     },
     *create({ payload, callback }, { call }) {
       const res = yield call(commentApi.createComment, payload);

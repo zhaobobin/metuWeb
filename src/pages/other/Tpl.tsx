@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect, Dispatch } from 'umi';
-import { ConnectedProps } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { Storage } from 'metu-ui/dist/utils/index';
 import ENV from '@/config/env';
 import { RootState } from '@/models/index';
 
@@ -9,11 +9,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 const connector = connect(mapStateToProps);
 
-type ModelState = ConnectedProps<typeof connector>;
-
-interface IProps extends ModelState {
-  dispatch: Dispatch;
-}
+interface IProps extends ConnectedProps<typeof connector> {}
 
 interface IState {}
 
@@ -26,7 +22,7 @@ class UserSignModal extends React.Component<IProps, IState> {
   //登录注册modal状态
   setUserModal(value, key) {
     this.props.dispatch({
-      type: 'global/changeSignModal',
+      type: 'account/changeSignModal',
       payload: {
         signModalVisible: value,
         signTabKey: key,

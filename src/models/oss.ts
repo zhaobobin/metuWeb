@@ -6,8 +6,8 @@
 import { Effect, Reducer } from 'umi';
 import { ossApi } from '@/api/index';
 // import { Toast } from '@/components/index';
-import ENV from '@/config/env';
 import { Request, Storage, FetchGet } from 'metu-ui/dist/utils/index';
+import ENV from '@/config/env';
 import { notification } from 'antd';
 
 const getClient = function (data) {
@@ -99,7 +99,7 @@ const photoModel: PhotoModel = {
               'metuwang.oss-cn-qingdao.aliyuncs.com',
               'photo.metuwang.com',
             );
-            return callback(url);
+            callback && callback(url);
           })
           .catch(function (err) {
             notification.error({
@@ -139,7 +139,7 @@ const photoModel: PhotoModel = {
                 'metuwang.oss-cn-qingdao.aliyuncs.com',
                 'photo.metuwang.com',
               );
-              return callback(url);
+              callback && callback(url);
             })
             .catch(function (err) {
               notification.error({

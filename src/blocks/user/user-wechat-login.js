@@ -4,8 +4,8 @@
  */
 import React from 'react';
 import WxLogin from 'wxlogin.react';
-import ENV from '@/config/env';
 import { Storage, Encrypt } from 'metu-ui/dist/utils/index';
+import ENV from '@/config/env';
 import WechatConfig from 'metu-ui/dist/config/wechat';
 
 export default class UserWechatLogin extends React.Component {

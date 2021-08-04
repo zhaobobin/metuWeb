@@ -1,7 +1,7 @@
 import { defineConfig } from 'umi';
-import ENV from './src/config/env';
 import routes from './src/routes/index';
 import theme from './src/theme/theme';
+import ENV from './src/config/env';
 
 export default defineConfig({
   publicPath: '/public/',

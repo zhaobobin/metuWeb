@@ -35,7 +35,7 @@ export default class MessageList extends React.Component {
     // console.log(type)
 
     this.props.dispatch({
-      type: 'global/request',
+      type: 'account/request',
       url: `/messages?type=${type}`,
       method: 'GET',
       payload: {},

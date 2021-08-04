@@ -69,9 +69,7 @@ const messageModel: MessageModel = {
           },
         },
       });
-      if (callback) {
-        callback();
-      }
+      callback && callback();
     },
   },
 

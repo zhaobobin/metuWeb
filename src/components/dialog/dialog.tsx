@@ -11,7 +11,12 @@ const modal_options = {
   autoFocusButton: null,
 };
 
-export function Alert(opt) {
+interface IAlertParams {
+  title: string;
+  callback: (index: number) => void;
+  btns?: any[];
+}
+export function Alert(opt: IAlertParams) {
   Modal.info({
     ...modal_options,
     maskClosable: true,
@@ -27,7 +32,12 @@ export function Alert(opt) {
   });
 }
 
-export function Confirm(opt) {
+interface IConfirmParams {
+  title: string;
+  callback: (index: number) => void;
+  btns?: any[];
+}
+export function Confirm(opt: IConfirmParams) {
   Modal.confirm({
     ...modal_options,
     className: styles.modalConfirm,
@@ -43,7 +53,13 @@ export function Confirm(opt) {
   });
 }
 
-export function ArticleAlert(opt) {
+interface IArticleAlertParams {
+  title: string;
+  callback: (index: number) => void;
+  btns?: any[];
+  msg: string;
+}
+export function ArticleAlert(opt: IArticleAlertParams) {
   Modal.info({
     ...modal_options,
     width: 700,
@@ -65,7 +81,16 @@ export function ArticleAlert(opt) {
   });
 }
 
-export function ResultAlert(opt) {
+interface IResultAlertParams {
+  title: string;
+  callback: (index: number) => void;
+  btns?: any[];
+  maskStyle: React.CSSProperties;
+  msg: string;
+  img: string;
+  time: number;
+}
+export function ResultAlert(opt: IResultAlertParams) {
   let modal = Modal.info({
     ...modal_options,
     maskStyle: opt.maskStyle || {},

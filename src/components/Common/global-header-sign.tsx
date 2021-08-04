@@ -1,11 +1,4 @@
-import {
-  useDispatch,
-  useIntl,
-  Link,
-  IGlobalState,
-  ConnectProps,
-  ConnectRC,
-} from 'umi';
+import { useIntl, Link, IAccountState } from 'umi';
 import { connect, ConnectedProps } from 'react-redux';
 import { Avatar, Button, Menu, Dropdown } from 'antd';
 import { BellOutlined, CloudUploadOutlined } from '@ant-design/icons';
@@ -18,24 +11,23 @@ import UserSignModal from '@/blocks/user/user-sign-modal';
 import { Confirm } from '@/components/dialog/dialog';
 
 const mapStateToProps = (state: RootState) => ({
-  global: state.global,
+  account: state.account,
 });
 const connector = connect(mapStateToProps);
 
 interface IProps extends ConnectedProps<typeof connector> {
-  global: IGlobalState;
+  account: IAccountState;
 }
 
 const GlobalHeaderSign = (props: IProps) => {
-  const dispatch = useDispatch();
   const intl = useIntl();
 
   // 切换登录注册modal状态
-  const setUserModal = (value, key) => {
-    dispatch({
+  const setUserModal = (visible: boolean, key: string) => {
+    props.dispatch({
       type: 'global/changeSignModal',
       payload: {
-        signModalVisible: value,
+        signModalVisible: visible,
         signTabKey: key,
       },
     });
@@ -47,15 +39,15 @@ const GlobalHeaderSign = (props: IProps) => {
       title: '退出登录?',
       callback: (res) => {
         if (res === 1) {
-          dispatch({
-            type: 'global/logout',
+          props.dispatch({
+            type: 'account/logout',
           });
         }
       },
     });
   };
 
-  const { isAuth, currentUser } = props.global;
+  const { isAuth, currentUser } = props.account;
 
   return (
     <div className={styles.userAction}>

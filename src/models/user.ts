@@ -59,7 +59,7 @@ const userModel: UserModel = {
     *followUser({ payload, callback }, { call }) {
       const res = yield call(userApi.followUser, payload);
       if (res.code === 0) {
-        callback(res);
+        callback && callback(res);
       } else {
         // Toast.info(res.message, 2);
       }

@@ -108,9 +108,7 @@ const circleModel: CircleModel = {
             },
           },
         });
-        if (callback) {
-          callback();
-        }
+        callback && callback();
       } else {
         // Toast.info(res.message, 2);
       }

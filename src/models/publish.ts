@@ -64,11 +64,11 @@ const publishModel: PublishModel = {
   effects: {
     *publishPhoto({ payload, callback }, { call }) {
       const res = yield call(photoApi.createPhoto, payload);
-      callback(res);
+      callback && callback(res);
     },
     *publishArticle({ payload, callback }, { call }) {
       const res = yield call(articleApi.createArticle, payload);
-      callback(res);
+      callback && callback(res);
     },
   },
 
