@@ -65,7 +65,7 @@ interface IProps extends ConnectedProps<typeof connector> {
   type?: string;
   mobile: string;
   buttonStyle?: React.CSSProperties;
-  callback: (value: string, msg?: string) => void;
+  callback: (value: string, err?: string) => void;
 }
 
 interface IState {
@@ -82,7 +82,7 @@ interface IState {
 let timer;
 
 const InputSmscode = (props: IProps) => {
-  let ajaxFlag: boolean = false;
+  let ajaxFlag: boolean = true;
   const initialState: IState = {
     value: '',
     maxLength: 6,
@@ -108,7 +108,6 @@ const InputSmscode = (props: IProps) => {
   //初始化按钮样式
   const initBtnStyle = (mobile: string) => {
     let { num } = state;
-    console.log(num);
     let btnStyle = mobile
       ? num === 60
         ? styles.actived
@@ -116,7 +115,6 @@ const InputSmscode = (props: IProps) => {
       : num === 60
       ? styles.null
       : styles.disabled;
-    console.log(btnStyle);
     setState({
       ...state,
       mobile,
@@ -214,12 +212,19 @@ const InputSmscode = (props: IProps) => {
           ...state,
           btnText: '重新获取',
           btnStyle: state.mobile ? styles.actived : styles.null,
+          modalVisible: false,
           num: 60,
         });
         clearInterval(timer);
       } else {
         num--;
-        setState({ ...state, btnText: '重新发送(' + num + 's)', num: num });
+        setState({
+          ...state,
+          btnText: '重新发送(' + num + 's)',
+          btnStyle: styles.disabled,
+          modalVisible: false,
+          num: num,
+        });
       }
     }, 1000);
   };
@@ -237,7 +242,7 @@ const InputSmscode = (props: IProps) => {
   };
 
   const modalWidth = document.body.clientWidth < 750 ? '95%' : '360px';
-
+  console.log(state.btnStyle);
   return (
     <div className={styles.smscode}>
       <Row gutter={10}>

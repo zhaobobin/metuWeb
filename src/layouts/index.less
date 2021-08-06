@@ -39,12 +39,9 @@ i {
       border-color: #fc514f;
     }
 
-    .ant-form-item-has-error :not(.ant-input-disabled).ant-input:focus,
-    .ant-form-item-has-error
-      :not(.ant-input-affix-wrapper-disabled).ant-input-affix-wrapper:focus,
-    .ant-form-item-has-error :not(.ant-input-disabled).ant-input-focused,
-    .ant-form-item-has-error
-      :not(.ant-input-affix-wrapper-disabled).ant-input-affix-wrapper-focused {
+    .ant-form-item-has-error .ant-input-affix-wrapper-focused .ant-input {
+      border: none;
+      border-bottom: 1px solid white !important;
       box-shadow: none;
     }
 

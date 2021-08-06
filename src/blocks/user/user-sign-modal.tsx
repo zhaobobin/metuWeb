@@ -58,8 +58,7 @@ const UserSignModal = (props: IProps) => {
           {signTabKey === '1' ? (
             <UserLogin showType="modal" callback={loginCallback} />
           ) : (
-            <div></div>
-            // <UserRegister showType="modal" callback={registerCallback} />
+            <UserRegister showType="modal" callback={registerCallback} />
           )}
         </div>
       </div>

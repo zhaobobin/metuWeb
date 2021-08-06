@@ -9,12 +9,10 @@ export const InputText = (props) => {
 
   const [value, setValue] = useState(defaultValue);
 
-  const changeValue = (e) => {
+  const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     setValue(value);
-    if (callback) {
-      callback(value);
-    }
+    callback && callback(value);
   };
 
   return (

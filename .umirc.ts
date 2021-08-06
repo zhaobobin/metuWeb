@@ -4,7 +4,6 @@ import theme from './src/theme/theme';
 import ENV from './src/config/env';
 
 export default defineConfig({
-  publicPath: '/public/',
   favicon: '/public/images/favicon.png',
   title: '迷图网',
   metas: [
@@ -40,11 +39,11 @@ export default defineConfig({
   dynamicImport: {
     loading: '@/pages/other/Loading',
   },
-  chainWebpack(config) {
-    config
-      .plugin('open-browser-webpack-plugin')
-      .use('open-browser-webpack-plugin', [{ url: 'http://localhost:8000' }]);
-  },
+  // chainWebpack(config) {
+  //   config
+  //     .plugin('open-browser-webpack-plugin')
+  //     .use('open-browser-webpack-plugin', [{ url: 'http://localhost:8000' }]);
+  // },
   // mfsu: {},
   dva: {
     immer: false,

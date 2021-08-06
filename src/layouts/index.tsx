@@ -11,6 +11,9 @@ const Home = (props) => {
   const location = useLocation();
 
   const getToken = () => {
+    if (location.pathname.includes('/user/')) {
+      return;
+    }
     dispatch({
       type: 'account/token',
     });
@@ -18,7 +21,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getToken();
-  });
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -7,7 +7,7 @@ import { Validator } from 'metu-ui/dist/utils/index';
 
 interface IProps {
   initialValue?: string;
-  callback: (value: string, msg?: string) => void;
+  callback: (value: string, err?: string) => void;
   autoFocus?: boolean;
 }
 

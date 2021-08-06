@@ -23,6 +23,11 @@ const UserRoutes = [
         component: '@/pages/user/register',
       },
       {
+        exact: true,
+        path: '/user/reset',
+        redirect: '/user/reset/index',
+      },
+      {
         name: '找回密码',
         title: 'menu.user.reset',
         path: '/user/reset/:step',

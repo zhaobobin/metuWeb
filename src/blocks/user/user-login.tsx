@@ -12,14 +12,14 @@ import {
   QqOutlined,
 } from '@ant-design/icons';
 import ENV from '@/config/env';
-import { Storage, Validator, Encrypt } from 'metu-ui/dist/utils/index';
+import { Storage, Encrypt } from 'metu-ui/dist/utils/index';
 import { RootState } from '@/models/index';
 import styles from './user-sign.less';
 
-import InputMobile from '@/components/Form/input-mobile';
-import InputPassword from '@/components/Form/input-password';
-import InputSmscode from '@/components/Form/input-smscode';
-// import UserWechatLogin from './user-wechat-login';
+import InputMobile from '@/components/form/input-mobile';
+import InputPassword from '@/components/form/input-password';
+import InputSmscode from '@/components/form/input-smscode';
+import UserWechatLogin from './user-wechat-login';
 
 const FormItem = Form.Item;
 const keys1 = ['mobile', 'password'];
@@ -33,7 +33,7 @@ const connector = connect(mapStateToProps);
 
 interface IProps extends ConnectedProps<typeof connector> {
   showType?: string;
-  callback: (value: boolean, key: string) => void;
+  callback: () => void;
 }
 
 interface IState {
@@ -45,7 +45,7 @@ interface IState {
 }
 
 const UserLogin = (props: IProps) => {
-  let ajaxFlag: boolean = false;
+  let ajaxFlag: boolean = true;
   const initialState: IState = {
     mobile: '',
     loginType: 'psd',
@@ -53,8 +53,8 @@ const UserLogin = (props: IProps) => {
     errorCount: 0,
     smscodeSended: false,
   };
-  const [form] = Form.useForm();
   const [state, setState] = useState(initialState);
+  const [form] = Form.useForm();
   const [, forceUpdate] = useState({});
 
   //重置表单
@@ -116,8 +116,8 @@ const UserLogin = (props: IProps) => {
     window.location.href = url;
   };
 
-  //手机号
-  const mobileCallback = (value, err) => {
+  // 手机号
+  const mobileCallback = (value: string, err?: string) => {
     if (err) {
       form.setFields([
         {
@@ -132,8 +132,8 @@ const UserLogin = (props: IProps) => {
     forceUpdate({});
   };
 
-  //密码
-  const passwordCallback = (value, err) => {
+  // 密码
+  const passwordCallback = (value: string, err?: string) => {
     if (err) {
       form.setFields([
         {
@@ -148,8 +148,8 @@ const UserLogin = (props: IProps) => {
     forceUpdate({});
   };
 
-  //短信验证码回调
-  const smscodeCallback = (value, err) => {
+  // 短信验证码回调
+  const smscodeCallback = (value: string, err?: string) => {
     //清空错误提示
     if (err === 'telError') {
       form.setFields([
@@ -191,7 +191,7 @@ const UserLogin = (props: IProps) => {
   };
 
   //确定
-  const submit = (values: any) => {
+  const onFinish = (values) => {
     if (!ajaxFlag) return;
     ajaxFlag = false;
 
@@ -218,6 +218,8 @@ const UserLogin = (props: IProps) => {
       .catch((error) => {});
   };
 
+  const onFinishFailed = (values) => {};
+
   //登录
   const login = (values) => {
     props.dispatch({
@@ -225,7 +227,7 @@ const UserLogin = (props: IProps) => {
       payload: values,
       callback: (res) => {
         if (res.code === 0) {
-          // this.props.callback();
+          props.callback();
         } else {
           form.setFields([
             {
@@ -239,7 +241,7 @@ const UserLogin = (props: IProps) => {
     });
   };
 
-  const setInputError = (status, msg) => {
+  const setInputError = (status: number, msg: string) => {
     let key;
     switch (status) {
       case 10001:
@@ -270,7 +272,7 @@ const UserLogin = (props: IProps) => {
     let { showType } = props;
     if (showType) {
       props.dispatch({
-        type: 'account/changeSignModal',
+        type: 'global/changeSignModal',
         payload: {
           signModalVisible: true,
           signTabKey: '2',
@@ -285,7 +287,7 @@ const UserLogin = (props: IProps) => {
     let { showType } = props;
     if (showType) {
       props.dispatch({
-        type: 'account/changeSignModal',
+        type: 'global/changeSignModal',
         payload: {
           signModalVisible: false,
           signTabKey: '1',
@@ -325,7 +327,7 @@ const UserLogin = (props: IProps) => {
           </a>
         </p>
 
-        <Form form={form} onFinish={submit}>
+        <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
           <FormItem
             name="mobile"
             initialValue={lastTel}
@@ -348,7 +350,6 @@ const UserLogin = (props: IProps) => {
             </FormItem>
           ) : (
             <FormItem
-              shouldUpdate
               name="smscode"
               rules={[{ required: true, message: '请输入验证码' }]}
             >
@@ -366,13 +367,12 @@ const UserLogin = (props: IProps) => {
 
           {loginType === 'psd' ? (
             <FormItem style={{ height: '40px' }}>
-              <FormItem name="remember" valuePropName="checked">
+              <FormItem name="remember" valuePropName="checked" noStyle>
                 <Checkbox onChange={rememberChange}>记住账号</Checkbox>
               </FormItem>
               <a className={styles.forgotPsd} onClick={toPsdReset}>
                 忘记密码
               </a>
-              <br />
             </FormItem>
           ) : (
             <FormItem style={{ height: '40px' }}>
@@ -416,7 +416,9 @@ const UserLogin = (props: IProps) => {
         </div>
 
         {loginType === 'scan' ? (
-          <div className={styles.loginScan}>{/*<UserWechatLogin/>*/}</div>
+          <div className={styles.loginScan}>
+            <UserWechatLogin />
+          </div>
         ) : null}
       </div>
 

@@ -8,7 +8,7 @@ import styles from './input-password.less';
 
 interface IProps {
   defaultValue?: string;
-  callback: (value: string, msg?: string) => void;
+  callback: (value: string, err?: string) => void;
   showPsdLevel?: boolean;
   placeholder?: string;
 }

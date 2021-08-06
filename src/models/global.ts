@@ -1,10 +1,6 @@
-import { Effect, Reducer } from 'umi';
-import { userApi } from '@/api/index';
-import { IUserInfo } from 'metu-ui/dist/types/CommonTypes';
+import { Reducer } from 'umi';
 import { Storage } from 'metu-ui/dist/utils/index';
 import ENV from '@/config/env';
-// import { Toast } from 'antd';
-import { RootState } from './index';
 
 export interface IGlobalState {
   lastTel: string;
