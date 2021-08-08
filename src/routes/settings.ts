@@ -4,7 +4,6 @@ const SettingsRoutes = [
     title: 'menu.user.settings',
     key: 'settings',
     path: 'settings',
-    isHide: true,
     component: '@/pages/settings/_layout',
     children: [
       {
@@ -42,7 +41,7 @@ const SettingsRoutes = [
         path: 'authenticate',
         component: '@/pages/settings/settings-authenticate',
       },
-    ]
+    ],
   },
 ];
 

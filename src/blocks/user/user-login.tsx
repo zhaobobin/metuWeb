@@ -186,7 +186,7 @@ const UserLogin = (props: IProps) => {
   //记住账号
   const rememberChange = () => {
     let rememberState = !state.remember;
-    Storage.set(ENV.storage.remenber, rememberState);
+    Storage.set(ENV.storage.remenber, rememberState.toString());
     setState({ ...state, remember: rememberState });
   };
 

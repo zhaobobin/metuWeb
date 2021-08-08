@@ -5,14 +5,14 @@ const BaseRoutes = [
     title: 'menu.home',
     key: 'home',
     path: '/',
-    component: '@/pages/home/index',
+    menuShow: true,
+    component: '@/pages/home/_layout',
   },
   {
     name: '搜索结果',
     title: 'menu.search.result',
     key: 'search',
     path: 'search',
-    isHide: true,
     component: '@/pages/search/_layout',
   },
   {
@@ -20,7 +20,6 @@ const BaseRoutes = [
     title: 'menu.publish',
     key: 'publish',
     path: 'publish/:publishType',
-    isHide: true,
     component: '@/pages/account/publish',
   },
   {
@@ -28,7 +27,6 @@ const BaseRoutes = [
     title: 'menu.edit',
     key: 'edit',
     path: 'edit/:publishType/:id',
-    isHide: true,
     component: '@/pages/account/publish',
   },
 
@@ -38,7 +36,6 @@ const BaseRoutes = [
     title: 'menu.help',
     key: 'help',
     path: 'help',
-    isHide: true,
     component: '@/pages/other/help',
   },
   {
@@ -46,7 +43,6 @@ const BaseRoutes = [
     title: 'menu.service',
     key: 'service',
     path: 'service',
-    isHide: true,
     component: '@/pages/other/service',
   },
   {
@@ -54,7 +50,6 @@ const BaseRoutes = [
     title: 'menu.contact',
     key: 'contact',
     path: 'contact',
-    isHide: true,
     component: '@/pages/other/contact',
   },
   {
@@ -62,7 +57,6 @@ const BaseRoutes = [
     title: 'menu.sitemap',
     key: 'sitemap',
     path: 'sitemap',
-    isHide: true,
     component: '@/pages/other/sitemap',
   },
 ];

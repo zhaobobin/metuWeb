@@ -2,9 +2,12 @@ import { NavLink, useIntl } from 'umi';
 import styles from './global-header-menu.less';
 
 const getMenuList = (navData: any[]) => {
-  if (!navData) return [];
+  if (!navData) {
+    return [];
+  }
   const intl = useIntl();
-  return navData.map((item) => {
+  const menus = navData.filter((nav) => nav.menuShow);
+  return menus.map((item) => {
     if (!item.name || item.isHide) return null;
     return (
       <li key={item.key}>
@@ -17,11 +20,11 @@ const getMenuList = (navData: any[]) => {
           {intl.formatMessage({ id: item.title })}
         </NavLink>
 
-        {item.children ? (
+        {item.children && (
           <div className={styles.submenu}>
-            {item.children.map((topic, i) =>
+            {item.children.map((topic) =>
               topic.isHide ? null : (
-                <p key={i}>
+                <p key={topic.key}>
                   <NavLink
                     className={styles.sublink}
                     activeClassName={styles.active}
@@ -33,7 +36,7 @@ const getMenuList = (navData: any[]) => {
               ),
             )}
           </div>
-        ) : null}
+        )}
       </li>
     );
   });

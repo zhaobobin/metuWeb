@@ -2,6 +2,14 @@ import { Request } from 'metu-ui/dist/utils/index';
 import { IPhotoPublishForm } from 'metu-ui/dist/types/PublishTypes';
 
 export const photoApi = {
+  getHomeBanner: () => {
+    return Request({ url: '/banner', method: 'get' });
+  },
+
+  getPhotoList: (params) => {
+    return Request({ url: '/photos', method: 'get', params });
+  },
+
   // 用户发布的图片列表
   getUserPhotos: (params: {
     user_id: string;

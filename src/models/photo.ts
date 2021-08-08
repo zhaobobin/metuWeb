@@ -4,6 +4,7 @@ import { IPhotoDetail } from 'metu-ui/dist/types/CommonTypes';
 // import { Toast } from '@/components/index';
 
 export interface IPhotoState {
+  homeBanner: any;
   photoDetail: IPhotoDetail;
 }
 
@@ -11,6 +12,8 @@ interface PhotoModel {
   namespace: string;
   state: IPhotoState;
   effects: {
+    queryHomeBanner: Effect;
+    queryPhotoList: Effect;
     queryPhotoDetail: Effect;
     queryPhotoState: Effect;
     favorPhoto: Effect;
@@ -25,6 +28,7 @@ interface PhotoModel {
 }
 
 const initialState: IPhotoState = {
+  homeBanner: null,
   photoDetail: {
     _id: '',
     title: '',
@@ -63,6 +67,21 @@ const photoModel: PhotoModel = {
   state: initialState,
 
   effects: {
+    *queryHomeBanner(_, { call, put }) {
+      const res = yield call(photoApi.getHomeBanner);
+      yield put({
+        type: 'setState',
+        payload: {
+          homeBanner: res.data,
+        },
+      });
+    },
+    *queryPhotoList({ payload, callback }, { call, put }) {
+      const res = yield call(photoApi.getPhotoList, payload);
+      if (res.code === 0) {
+        callback(res);
+      }
+    },
     *queryPhotoDetail({ payload }, { call, put }) {
       const res = yield call(photoApi.getPhotoDetail, payload);
       if (res.code === 0) {

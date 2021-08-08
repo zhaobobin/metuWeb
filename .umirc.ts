@@ -48,6 +48,8 @@ export default defineConfig({
   dva: {
     immer: false,
     hmr: true,
+    disableModelsReExport: true,
+    lazyLoad: true,
   },
   locale: {
     default: 'zh-CN',

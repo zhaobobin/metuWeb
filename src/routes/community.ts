@@ -5,7 +5,6 @@ const CommunityRoutes = [
     title: 'menu.community',
     key: 'community',
     path: '/community',
-    isHide: true,
     component: '@/pages/community/index',
   },
   {
@@ -13,6 +12,7 @@ const CommunityRoutes = [
     title: 'menu.community.discover',
     key: 'discover',
     path: '/community/discover',
+    menuShow: true,
     component: '@/pages/community/discover',
   },
   {
@@ -20,7 +20,6 @@ const CommunityRoutes = [
     title: 'menu.community.author',
     key: 'author',
     path: '/community/author',
-    isHide: true,
     component: '@/pages/community/author',
   },
   {
@@ -28,7 +27,7 @@ const CommunityRoutes = [
     title: 'menu.community.circle',
     key: 'circle',
     path: '/community/circle',
-    isHide: false,
+    menuShow: true,
     component: '@/pages/community/circle',
   },
   {
@@ -36,7 +35,6 @@ const CommunityRoutes = [
     title: 'menu.community.circle.detail',
     key: 'circle-detail',
     path: 'community/circle/detail/:id',
-    isHide: true,
     component: '@/pages/community/circle-detail',
   },
   {
@@ -44,7 +42,6 @@ const CommunityRoutes = [
     title: 'menu.community.circle.create',
     key: 'circle-detail',
     path: 'community/circle/create',
-    isHide: true,
     component: '@/pages/community/circle-create',
   },
   {
@@ -52,7 +49,6 @@ const CommunityRoutes = [
     title: 'menu.photo.detail',
     key: 'photo',
     path: 'photos/:id/:title',
-    isHide: true,
     component: '@/pages/detail/photo-detail',
   },
   {
@@ -60,7 +56,6 @@ const CommunityRoutes = [
     title: 'menu.article.detail',
     key: 'article',
     path: 'graphic/:id/:title',
-    isHide: true,
     component: '@/pages/detail/article-detail',
   },
 ];

@@ -1,8 +1,6 @@
-import React from 'react';
-
 interface IProps {
   className?: string;
-  style?: React.CSSProperties;
+  style?: any;
 }
 
 const LoadingBg = (props: IProps) => {

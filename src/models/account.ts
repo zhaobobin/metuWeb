@@ -115,7 +115,7 @@ const userModel: UserModel = {
       const token = yield Storage.get(ENV.storage.token);
       if (token) {
         const res = yield call(userApi.token, payload);
-        if (res.code === 0) {
+        if (res && res.code === 0) {
           yield put({
             type: 'setState',
             payload: {

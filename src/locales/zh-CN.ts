@@ -1,9 +1,9 @@
 export default {
-
   'env.appname': '迷图网',
   'env.hometitle': '迷图网 - 摄影图片素材分享社区',
   'env.keywords': '迷图网,摄影,图片,素材,分享,社区。',
-  'env.description': '迷图网（www.metuwang.com）- 是一个致力于摄影分享、发现、售卖的专业平台，来自世界各地的摄影师是我们忠实的用户。让你与他人因图片相识，世界很大，我想看一看。',
+  'env.description':
+    '迷图网（www.metuwang.com）- 是一个致力于摄影分享、发现、售卖的专业平台，来自世界各地的摄影师是我们忠实的用户。让你与他人因图片相识，世界很大，我想看一看。',
   'env.author': '迷图网(www.metuwang.com)',
   'env.slogan': '影像点亮生活',
   'env.web': 'www.metuwang.com',
@@ -54,9 +54,10 @@ export default {
   'home.photo.title': '发现和分享世界上最好的照片',
   'home.photo.desc1': '从世界各地不同风格和流派的照片中获得灵感。',
   'home.photo.desc2': '世界那么大，我想去看看。',
-  'home.cricle.title': '加入圈子，以图会友',
+  'home.circle.title': '加入圈子，以图会友',
   'home.contest.title': '挑战任务，赢取奖励',
-  'home.contest.desc': '创造性的挑战活动，以帮助摄影师测试他们的技能，得到他人的认可，并赢得令人兴奋的奖项。',
+  'home.contest.desc':
+    '创造性的挑战活动，以帮助摄影师测试他们的技能，得到他人的认可，并赢得令人兴奋的奖项。',
   'home.question.title': '参与问答，交流学习',
 
   'version.menu.popular': '热门',
@@ -75,7 +76,7 @@ export default {
   'account.setting.preferences': '个人偏好',
   'account.setting.social': '社交账号',
 
-  'callback': '回调页',
+  callback: '回调页',
   'callback.wechat.login': '微信授权登录',
   'callback.weibo.login': '微博回调页',
   'callback.qq.login': 'QQ授权登录',
@@ -126,7 +127,7 @@ export default {
   'menu.doc': '开发文档',
 
   // 文档
-  'doc': '开发文档',
+  doc: '开发文档',
   'doc.demo': '示例',
   'doc.introduce': '介绍',
   'doc.components': '组件',
@@ -139,6 +140,4 @@ export default {
   'doc.model': '模型',
   'doc.model.user': '用户',
   'doc.model.photo': '图片',
-
-
 };

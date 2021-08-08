@@ -1,9 +1,10 @@
 export default {
-
   'env.appname': 'metuwang',
   'env.hometitle': 'metuwang - Photo material sharing community',
-  'env.keywords': 'metuwang, Photography, pictures, materials, sharing, community',
-  'env.description': 'metuwang（www.metuwang.com）- It is a professional platform dedicated to photography sharing, discovery and selling. Photographers from all over the world are our loyal users. Let you and others because of the picture acquaintance, the world is very big, I want to have a look.',
+  'env.keywords':
+    'metuwang, Photography, pictures, materials, sharing, community',
+  'env.description':
+    'metuwang（www.metuwang.com）- It is a professional platform dedicated to photography sharing, discovery and selling. Photographers from all over the world are our loyal users. Let you and others because of the picture acquaintance, the world is very big, I want to have a look.',
   'env.author': 'metuwang(www.metuwang.com)',
   'env.slogan': 'Image lights up life',
   'env.web': 'www.metuwang.com',
@@ -52,12 +53,15 @@ export default {
   'menu.edit': 'Edit',
 
   'home.photo.title': 'Discover and share the world’s best photos',
-  'home.photo.desc1': 'Get inspiration from photos of different styles and genres around the world.',
+  'home.photo.desc1':
+    'Get inspiration from photos of different styles and genres around the world.',
   'home.photo.desc2': 'The world is so big, yet I owe it a visit.',
-  'home.cricle.title': 'Join the circle in order to meet friends',
+  'home.circle.title': 'Join the circle in order to meet friends',
   'home.contest.title': 'Challenge tasks and win rewards',
-  'home.contest.desc': 'Creative challenge activities to help photographers test their skills, gain recognition from others, and win exciting awards.',
-  'home.question.title': 'Participate in questions and answers, exchange learning',
+  'home.contest.desc':
+    'Creative challenge activities to help photographers test their skills, gain recognition from others, and win exciting awards.',
+  'home.question.title':
+    'Participate in questions and answers, exchange learning',
 
   'version.menu.popular': 'Popular',
   'version.menu.editer': 'Editer',
@@ -75,7 +79,7 @@ export default {
   'account.setting.preferences': 'Preferences',
   'account.setting.social': 'Social',
 
-  'callback': 'Callback Page',
+  callback: 'Callback Page',
   'callback.wechat.login': 'Wechat Login Callback Page',
   'callback.weibo.login': 'Weibo Login Callback Page',
   'callback.qq.login': 'QQ Login Callback Page',
@@ -125,7 +129,7 @@ export default {
   'menu.doc': 'Doc',
 
   // 文档
-  'doc': 'Doc',
+  doc: 'Doc',
   'doc.demo': 'Demo',
   'doc.introduce': 'Introduce',
   'doc.components': 'Components',
@@ -138,5 +142,4 @@ export default {
   'doc.model': 'Model',
   'doc.model.user': 'Model User',
   'doc.model.photo': 'Model photo',
-
 };

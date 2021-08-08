@@ -59,7 +59,7 @@ const GlobalHeaderSign = (props: IProps) => {
                 <li>
                   <a className={styles.message}>
                     <BellOutlined style={{ fontSize: '24px' }} />
-                    <Icon type="bell" style={{ fontSize: '24px' }} />
+                    <BellOutlined className={styles.icon} style={{ fontSize: '24px' }} />
                   </a>
                 </li>
               </MessagesPopover> */}
@@ -85,7 +85,10 @@ const GlobalHeaderSign = (props: IProps) => {
                 to="/publish/photo"
                 className={styles.hasIcon + ' ' + styles.publish}
               >
-                <CloudUploadOutlined style={{ fontSize: '24px' }} />
+                <CloudUploadOutlined
+                  className={styles.icon}
+                  style={{ fontSize: '24px' }}
+                />
                 <span>{intl.formatMessage({ id: 'menu.publish' })}</span>
               </Link>
             </li>

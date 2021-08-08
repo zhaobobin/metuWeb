@@ -4,7 +4,6 @@ const MessagesRoutes = [
     title: 'menu.user.messages',
     key: 'messages',
     path: 'messages',
-    isHide: true,
     component: '@/pages/messages/_layout',
     children: [
       {
@@ -49,7 +48,7 @@ const MessagesRoutes = [
         path: 'notify',
         component: '@/pages/messages/messages-notify',
       },
-    ]
+    ],
   },
 ];
 

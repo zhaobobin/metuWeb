@@ -2,7 +2,6 @@ const UserRoutes = [
   {
     exact: false,
     path: '/user',
-    isHide: true,
     component: '@/pages/user/_layout',
     routes: [
       {

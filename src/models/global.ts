@@ -1,5 +1,6 @@
-import { Reducer } from 'umi';
-import { Storage } from 'metu-ui/dist/utils/index';
+import { Effect, Reducer, history } from 'umi';
+import { notification } from 'antd';
+import { Storage, Request } from 'metu-ui/dist/utils/index';
 import ENV from '@/config/env';
 
 export interface IGlobalState {
@@ -13,7 +14,9 @@ export interface IGlobalState {
 interface GlobalModel {
   namespace: string;
   state: IGlobalState;
-  effects: {};
+  effects: {
+    request: Effect;
+  };
   reducers: {
     setState: Reducer<IGlobalState>;
     changeSignModal: Reducer<IGlobalState>;
@@ -34,7 +37,41 @@ const globalModel: GlobalModel = {
 
   state: initialState,
 
-  effects: {},
+  effects: {
+    *request({ url, method, payload, callback }, { call, put }) {
+      let res,
+        exp = payload.exp,
+        storage = Storage.get(url);
+
+      if (exp && storage) {
+        res = storage;
+      } else {
+        res = yield call((params) => {
+          return Request({ url, method: method || 'POST', body: params });
+        }, payload);
+        if (res.code === 0 && exp) Storage.set(url, res);
+      }
+
+      //登录过期等
+      if (res.code === 401) {
+        Storage.remove(ENV.storage.token); //删除token
+        notification.error({
+          message: '提示',
+          description: res.message,
+        });
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            isAuth: false,
+            userInfo: '',
+          },
+        });
+        history.push('/');
+      } else {
+        yield callback(res);
+      }
+    },
+  },
 
   reducers: {
     setState(state, { payload }) {
