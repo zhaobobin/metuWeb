@@ -2,7 +2,9 @@
   "name": "metuWeb",
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "cross-env X_ENV=dev umi dev",
+    "start:dev": "cross-env X_ENV=dev umi dev",
+    "start:pro": "cross-env X_ENV=pro umi dev",
     "build": "umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
@@ -21,8 +23,12 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "^4.6.2",
+    "@ant-design/icons": "^5.0.0",
     "@ant-design/pro-layout": "^6.5.0",
+    "antd": "^5.1.4",
+    "antd-mobile": "^5.27.0",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.7",
     "metu-ui": "^0.1.1",
     "react": "17.x",
     "react-dom": "17.x",
@@ -32,6 +38,7 @@
     "react-masonry-component": "^6.3.0",
     "react-measure": "^2.5.2",
     "react-photo-gallery": "6.1.4",
+    "screenfull": "^5.1.0",
     "umi": "^3.5.13",
     "wxlogin.react": "^0.1.0"
   },
@@ -40,6 +47,7 @@
     "@types/react-dom": "^17.0.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.5.13",
+    "cross-env": "^7.0.3",
     "lint-staged": "^10.0.7",
     "open-browser-webpack-plugin": "^0.0.5",
     "prettier": "^2.2.0",

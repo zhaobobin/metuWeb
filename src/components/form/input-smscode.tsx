@@ -46,21 +46,15 @@
  *
  */
 import React, { useState, useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'umi';
 import { Row, Col, Input } from 'antd';
-import { Modal, Toast } from 'antd-mobile';
+import { Modal, Toast } from 'antd-mobile/es';
 import { filterTel } from '@/utils/utils';
-import { RootState } from '@/models/index';
 import styles from './input-smscode.less';
 
 import PintuValidate from '@/components/Form/PintuValidate';
 
-const mapStateToProps = (state: RootState) => ({
-  global: state.global,
-});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {
+interface IProps {
   auto?: boolean;
   type?: string;
   mobile: string;
@@ -82,7 +76,10 @@ interface IState {
 let timer;
 
 const InputSmscode = (props: IProps) => {
+  const dispatch = useDispatch();
+
   let ajaxFlag: boolean = true;
+
   const initialState: IState = {
     value: '',
     maxLength: 6,
@@ -161,8 +158,10 @@ const InputSmscode = (props: IProps) => {
   };
 
   //拼图回调
-  const pintuResult = (value: string) => {
-    if (!value) return;
+  const pintuResult = (res: boolean) => {
+    if (!res) {
+      return;
+    }
     sendSmsCode();
     setState({
       ...state,
@@ -173,7 +172,7 @@ const InputSmscode = (props: IProps) => {
   //发送短信验证码
   const sendSmsCode = () => {
     let { type, mobile } = props;
-    props.dispatch({
+    dispatch({
       type: 'account/getSmscode',
       payload: {
         type,
@@ -183,14 +182,13 @@ const InputSmscode = (props: IProps) => {
         if (res.code === 0) {
           interval(); //执行倒计时
           props.callback('', 'clearError');
-          Toast.info(
+          Toast.show(
             `已将短信验证码发送到您${filterTel(
               mobile,
             )}的手机当中，请注意查收！`,
-            2,
           );
         } else {
-          Toast.info(res.message, 2);
+          Toast.show(res.message);
         }
       },
     });
@@ -242,7 +240,7 @@ const InputSmscode = (props: IProps) => {
   };
 
   const modalWidth = document.body.clientWidth < 750 ? '95%' : '360px';
-  console.log(state.btnStyle);
+
   return (
     <div className={styles.smscode}>
       <Row gutter={10}>
@@ -272,19 +270,14 @@ const InputSmscode = (props: IProps) => {
       <Modal
         style={{ width: modalWidth }}
         title="请先完成下方验证"
-        footer={undefined}
-        closable={true}
-        maskClosable={false}
-        transparent={true}
         visible={state.modalVisible}
-        zIndex={1001}
-        onClose={modalCancel}
+        showCloseButton={true}
         className={styles.pintuModal}
-      >
-        <PintuValidate no={state.pintuNo} callback={pintuResult} />
-      </Modal>
+        content={<PintuValidate no={state.pintuNo} callback={pintuResult} />}
+        onClose={modalCancel}
+      />
     </div>
   );
 };
 
-export default connector(InputSmscode);
+export default InputSmscode;

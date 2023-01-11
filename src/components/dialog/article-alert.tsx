@@ -1,56 +1,53 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from 'antd';
 import styles from './article-alert.less';
 
-export default class ArticleAlert extends React.Component {
-  constructor(props) {
-    super(props);
-    this.ajaxFlag = true;
-    this.state = {
-      visible: false,
-    };
-  }
-
-  componentDidMount() {
-    this.props.Refs = this;
-  }
-
-  show = () => {
-    this.setState({
-      visible: true,
-    });
+const ArticleAlert = (props) => {
+  const initialState = {
+    visible: false,
   };
 
-  close = () => {
-    this.setState({
-      visible: false,
-    });
-  };
+  const [state, setState] = useState(initialState);
 
-  handleCancel = (e) => {
-    this.setState({
+  useEffect(() => {
+    props.Refs = this;
+  }, []);
+
+  // const show = () => {
+  //   setState({
+  //     visible: true,
+  //   });
+  // };
+
+  // const close = () => {
+  //   setState({
+  //     visible: false,
+  //   });
+  // };
+
+  const handleCancel = (e) => {
+    setState({
       visible: false,
     });
   };
 
-  render() {
-    const { visible } = this.state;
-    const { title, content } = this.props;
+  const { visible } = state;
+  const { title, content } = props;
 
-    return (
-      <Modal
-        title={title}
-        centered={true}
-        visible={visible}
-        autoFocusButton={null}
-        onCancel={this.handleCancel}
-        className={styles.modalArticleAlert}
-      >
-        <div
-          className={styles.ArticleDetail}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      </Modal>
-    );
-  }
-}
+  return (
+    <Modal
+      title={title}
+      centered={true}
+      open={visible}
+      onCancel={handleCancel}
+      className={styles.modalArticleAlert}
+    >
+      <div
+        className={styles.ArticleDetail}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </Modal>
+  );
+};
+
+export default ArticleAlert;

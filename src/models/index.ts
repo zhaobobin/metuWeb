@@ -25,7 +25,7 @@ const models = [
   publish,
 ];
 
-export type RootState = {
+export type IRootState = {
   loading: Loading;
   global: IGlobalState;
   home: IHomeState;

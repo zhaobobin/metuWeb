@@ -8,9 +8,11 @@
 /package-lock.json
 
 # production
+/dist/www
 /dist
 
 # misc
+.idea
 .DS_Store
 
 # umi

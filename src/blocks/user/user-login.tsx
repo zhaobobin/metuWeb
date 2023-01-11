@@ -2,8 +2,7 @@
  * 用户登录 - 模块
  */
 import { useState } from 'react';
-import { history } from 'umi';
-import { connect, ConnectedProps } from 'react-redux';
+import { history, useSelector, useDispatch } from 'umi';
 import { Form, Button, Checkbox } from 'antd';
 import {
   ScanOutlined,
@@ -13,7 +12,7 @@ import {
 } from '@ant-design/icons';
 import ENV from '@/config/env';
 import { Storage, Encrypt } from 'metu-ui/dist/utils/index';
-import { RootState } from '@/models/index';
+import { IRootState } from '@/models/index';
 import styles from './user-sign.less';
 
 import InputMobile from '@/components/form/input-mobile';
@@ -25,13 +24,7 @@ const FormItem = Form.Item;
 const keys1 = ['mobile', 'password'];
 const keys2 = ['mobile', 'smscode'];
 
-const mapStateToProps = (state: RootState) => ({
-  global: state.global,
-  account: state.account,
-});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {
+interface IProps {
   showType?: string;
   callback: () => void;
 }
@@ -45,6 +38,9 @@ interface IState {
 }
 
 const UserLogin = (props: IProps) => {
+  const dispatch = useDispatch();
+  const global = useSelector((state: IRootState) => state.global);
+
   let ajaxFlag: boolean = true;
   const initialState: IState = {
     mobile: '',
@@ -222,7 +218,7 @@ const UserLogin = (props: IProps) => {
 
   //登录
   const login = (values) => {
-    props.dispatch({
+    dispatch({
       type: 'account/login',
       payload: values,
       callback: (res) => {
@@ -271,7 +267,7 @@ const UserLogin = (props: IProps) => {
   const toRegister = () => {
     let { showType } = props;
     if (showType) {
-      props.dispatch({
+      dispatch({
         type: 'global/changeSignModal',
         payload: {
           signModalVisible: true,
@@ -286,7 +282,7 @@ const UserLogin = (props: IProps) => {
   const toPsdReset = () => {
     let { showType } = props;
     if (showType) {
-      props.dispatch({
+      dispatch({
         type: 'global/changeSignModal',
         payload: {
           signModalVisible: false,
@@ -297,7 +293,7 @@ const UserLogin = (props: IProps) => {
     history.push('/user/reset');
   };
 
-  const { lastTel } = props.global;
+  const { lastTel } = global;
   const { loginType } = state;
 
   return (
@@ -442,4 +438,4 @@ const UserLogin = (props: IProps) => {
   );
 };
 
-export default connector(UserLogin);
+export default UserLogin;

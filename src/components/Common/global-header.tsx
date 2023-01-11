@@ -95,7 +95,6 @@ export default class GlobalHeader extends React.Component<IProps, IState> {
   render() {
     const { navData } = this.props;
     const { headerFixed, headerOpacity } = this.state;
-
     return (
       <div className={styles.header + ' ' + headerFixed + ' ' + headerOpacity}>
         <Row>

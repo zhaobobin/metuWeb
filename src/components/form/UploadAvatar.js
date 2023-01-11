@@ -162,7 +162,7 @@ export default class UploadAvatar extends React.Component {
             width={650}
             maskClosable={false}
             destroyOnClose={true}
-            visible={editVisible}
+            open={editVisible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >

@@ -3,7 +3,7 @@ import { userApi } from '@/api/index';
 import { IUserInfo } from 'metu-ui/dist/types/CommonTypes';
 import { Storage } from 'metu-ui/dist/utils/index';
 import ENV from '@/config/env';
-import { RootState } from './index';
+import { IRootState } from './index';
 
 export interface IAccountState {
   isAuth: boolean; // 登录状态
@@ -174,7 +174,9 @@ const userModel: UserModel = {
     },
 
     *updateAvatar({ payload }, { call, put, select }) {
-      const { currentUser } = yield select((state: RootState) => state.account);
+      const { currentUser } = yield select(
+        (state: IRootState) => state.account,
+      );
       const res = yield call(userApi.updateAvatar, {
         url: payload.url,
       });
@@ -194,7 +196,9 @@ const userModel: UserModel = {
     },
 
     *updateCover({ payload }, { call, put, select }) {
-      const { currentUser } = yield select((state: RootState) => state.account);
+      const { currentUser } = yield select(
+        (state: IRootState) => state.account,
+      );
       const res = yield call(userApi.updateCover, {
         url: payload.url,
       });
@@ -211,7 +215,9 @@ const userModel: UserModel = {
     },
 
     *changeProfile({ payload, callback }, { call, put, select }) {
-      const { currentUser } = yield select((state: RootState) => state.account);
+      const { currentUser } = yield select(
+        (state: IRootState) => state.account,
+      );
       const res = yield call(userApi.changeProfile, payload);
       if (res.code === 0) {
         yield put({

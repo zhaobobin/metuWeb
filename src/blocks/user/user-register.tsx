@@ -1,12 +1,10 @@
 /**
  * 用户注册 - 模块
  */
-import React, { useState } from 'react';
-import { history } from 'umi';
-import { connect, ConnectedProps } from 'react-redux';
+import { useState } from 'react';
+import { history, useDispatch } from 'umi';
 import { Form, Button } from 'antd';
 import { Encrypt } from 'metu-ui/dist/utils/index';
-import { RootState } from '@/models/index';
 import styles from './user-sign.less';
 
 import InputMobile from '@/components/form/input-mobile';
@@ -17,13 +15,7 @@ import FormXieyi from '@/components/form/form-xieyi';
 
 const FormItem = Form.Item;
 
-const mapStateToProps = (state: RootState) => ({
-  global: state.global,
-  account: state.account,
-});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {
+interface IProps {
   showType?: string;
   nickname?: string;
   wechat_userinfo?: any;
@@ -37,6 +29,8 @@ interface IState {
 }
 
 const UserRegister = (props: IProps) => {
+  const dispatch = useDispatch();
+
   let ajaxFlag: boolean = true;
   const initialState: IState = {
     userType: 'user',
@@ -167,7 +161,7 @@ const UserRegister = (props: IProps) => {
     }
     // 第三方登录 end!!!
 
-    props.dispatch({
+    dispatch({
       type: 'account/register',
       payload: data,
       callback: (res) => {
@@ -216,7 +210,7 @@ const UserRegister = (props: IProps) => {
   const toLogin = () => {
     let { showType } = props;
     if (showType) {
-      props.dispatch({
+      dispatch({
         type: 'global/changeSignModal',
         payload: {
           signModalVisible: true,
@@ -318,4 +312,4 @@ const UserRegister = (props: IProps) => {
   );
 };
 
-export default connector(UserRegister);
+export default UserRegister;

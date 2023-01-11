@@ -1,6 +1,7 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { notification } from 'antd';
 import { parse, stringify } from 'qs';
+import ENV from '@/config/env';
 // import WechatConfig from '@/config/wechat'
 
 /**
@@ -64,7 +65,7 @@ export function goBack() {
     if (window.history.length > 0) {
       window.history.go(-1);
     } else {
-      window.location.href = this.ENV.siteUrl;
+      window.location.href = ENV.api.pro;
     }
   } else {
     //非IE浏览器
@@ -78,7 +79,7 @@ export function goBack() {
       if (window.history.length > 1) {
         window.history.go(-1);
       } else {
-        window.location.href = this.ENV.siteUrl;
+        window.location.href = ENV.api.pro;
       }
     } else {
       //未知的浏览器
@@ -167,26 +168,26 @@ export function imgToBase64(img) {
   canvas.width = img.width;
   canvas.height = img.height;
   let ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0, img.width, img.height);
+  ctx?.drawImage(img, 0, 0, img.width, img.height);
   return canvas.toDataURL('image/jpeg');
 }
 
 //文件转为base64
 export function file2base64(file, cb) {
-  let base64 = '',
-    reader = new FileReader();
+  let base64: any = '';
+  const reader = new FileReader();
 
   reader.readAsDataURL(file);
   reader.onload = function (e) {
-    base64 = e.target.result;
+    base64 = e.target?.result;
 
     let img = new Image();
     img.src = base64;
     img.onload = function () {
       let data = {
         url: base64,
-        width: this.width,
-        height: this.height,
+        // width: this.width,
+        // height: this.height,
       };
       return cb(data);
     };
@@ -228,7 +229,7 @@ export function toBase64(file) {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function (e) {
-      resolve(e.target.result);
+      resolve(e.target?.result);
     };
   });
 }
@@ -243,7 +244,7 @@ export function img2base64(imgUrl, cb) {
   img.onload = function () {
     cav.width = img.width;
     cav.height = img.height;
-    ctx.drawImage(img, 0, 0); //img转换为canvas
+    ctx?.drawImage(img, 0, 0); //img转换为canvas
     base64 = cav.toDataURL('images/jpeg');
     return cb(base64);
   };
@@ -363,7 +364,7 @@ export function getTimeDistance(type) {
     now.setHours(0);
     now.setMinutes(0);
     now.setSeconds(0);
-    return [moment(now), moment(now.getTime() + (oneDay - 1000))];
+    return [dayjs(now), dayjs(now.getTime() + (oneDay - 1000))];
   }
 
   if (type === 'week') {
@@ -380,22 +381,21 @@ export function getTimeDistance(type) {
 
     const beginTime = now.getTime() - day * oneDay;
 
-    return [moment(beginTime), moment(beginTime + (7 * oneDay - 1000))];
+    return [dayjs(beginTime), dayjs(beginTime + (7 * oneDay - 1000))];
   }
 
   if (type === 'month') {
     const year = now.getFullYear();
     const month = now.getMonth();
-    const nextDate = moment(now).add(1, 'months');
+    const nextDate = dayjs(now).add(1, 'months');
     const nextYear = nextDate.year();
     const nextMonth = nextDate.month();
 
     return [
-      moment(`${year}-${fixedZero(month + 1)}-01 00:00:00`),
-      moment(
-        moment(
-          `${nextYear}-${fixedZero(nextMonth + 1)}-01 00:00:00`,
-        ).valueOf() - 1000,
+      dayjs(`${year}-${fixedZero(month + 1)}-01 00:00:00`),
+      dayjs(
+        dayjs(`${nextYear}-${fixedZero(nextMonth + 1)}-01 00:00:00`).valueOf() -
+          1000,
       ),
     ];
   }
@@ -403,12 +403,12 @@ export function getTimeDistance(type) {
   if (type === 'year') {
     const year = now.getFullYear();
 
-    return [moment(`${year}-01-01 00:00:00`), moment(`${year}-12-31 23:59:59`)];
+    return [dayjs(`${year}-01-01 00:00:00`), dayjs(`${year}-12-31 23:59:59`)];
   }
 }
 
 export function getPlainNode(nodeList, parentPath = '') {
-  const arr = [];
+  const arr: any[] = [];
   nodeList.forEach((node) => {
     const item = node;
     item.path = `${parentPath}/${item.path || ''}`.replace(/\/+/g, '/');
@@ -449,7 +449,7 @@ function getRelation(str1, str2) {
 }
 
 function getRenderArr(routes) {
-  let renderArr = [];
+  let renderArr: any[] = [];
   renderArr.push(routes[0]);
   for (let i = 1; i < routes.length; i += 1) {
     // 去重

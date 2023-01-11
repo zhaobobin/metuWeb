@@ -2,7 +2,7 @@ import { Effect, Reducer } from 'umi';
 import { circleApi } from '@/api/index';
 // import { Toast } from '@/components/index';
 import { ICircleItem, ICircleMembers } from 'metu-ui/dist/types/CircleTypes';
-import { RootState } from './index';
+import { IRootState } from './index';
 
 export interface ICircleState {
   circleList: ICircleItem[];
@@ -78,7 +78,7 @@ const circleModel: CircleModel = {
     *queryCircleMembers({ payload, callback }, { call, put, select }) {
       // const res = yield call(circleApi.getCircleMembers, payload);
       const { list, pageInfo } = yield select(
-        (state: RootState) => state.circle.circleMembers,
+        (state: IRootState) => state.circle.circleMembers,
       );
       let page = 1;
       if (payload && payload.loadMore) {

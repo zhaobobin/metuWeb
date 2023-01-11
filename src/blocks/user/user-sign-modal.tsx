@@ -1,24 +1,20 @@
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector, useDispatch } from 'umi';
 import { Modal } from 'antd';
 import ENV from '@/config/env';
-import { RootState } from '@/models/index';
+import { IRootState } from '@/models/index';
 import styles from './user-sign-modal.less';
 
 import logo from '@/assets/logo.png';
 import UserLogin from '@/blocks/user/user-login';
 import UserRegister from '@/blocks/user/user-register';
 
-const mapStateToProps = (state: RootState) => ({
-  global: state.global,
-});
-const connector = connect(mapStateToProps);
+const UserSignModal = () => {
+  const dispatch = useDispatch();
+  const global = useSelector((state: IRootState) => state.global);
 
-interface IProps extends ConnectedProps<typeof connector> {}
-
-const UserSignModal = (props: IProps) => {
   //登录注册modal状态
   const setUserModal = (visible: boolean, key: string) => {
-    props.dispatch({
+    dispatch({
       type: 'global/changeSignModal',
       payload: {
         signModalVisible: visible,
@@ -35,7 +31,7 @@ const UserSignModal = (props: IProps) => {
     setUserModal(false, '2');
   };
 
-  const { signModalVisible, signTabKey } = props.global;
+  const { signModalVisible, signTabKey } = global;
 
   return (
     <Modal
@@ -45,7 +41,7 @@ const UserSignModal = (props: IProps) => {
       centered={true}
       maskClosable={false}
       destroyOnClose={true}
-      visible={signModalVisible}
+      open={signModalVisible}
       className={styles.userModal}
       onCancel={() => setUserModal(false, '1')}
     >
@@ -66,4 +62,4 @@ const UserSignModal = (props: IProps) => {
   );
 };
 
-export default connector(UserSignModal);
+export default UserSignModal;

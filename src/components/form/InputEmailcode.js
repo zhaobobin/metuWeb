@@ -48,7 +48,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Row, Col, Input } from 'antd';
-import { Modal, Toast } from 'antd-mobile';
+import { Modal, Toast } from 'antd-mobile/es';
 import styles from './InputSmscode.less';
 
 import PintuValidate from '@/components/Form/PintuValidate';
@@ -169,9 +169,9 @@ export default class InputEmailcode extends React.Component {
         if (res.code === 0) {
           this.interval(); //执行倒计时
           this.props.callback('', 'clearError');
-          Toast.info(`已将验证码发送到您${email}的邮箱当中，请注意查收！`, 2);
+          Toast.show(`已将验证码发送到您${email}的邮箱当中，请注意查收！`);
         } else {
-          Toast.info(res.message, 2);
+          Toast.show(res.message);
         }
       },
     });
@@ -251,7 +251,7 @@ export default class InputEmailcode extends React.Component {
           closable={true}
           maskClosable={false}
           transparent={true}
-          visible={modalVisible}
+          open={modalVisible}
           zIndex={1001}
           onClose={this.modalCancel}
           className={styles.pintuModal}

@@ -3,7 +3,21 @@ import routes from './src/routes/index';
 import theme from './src/theme/theme';
 import ENV from './src/config/env';
 
+let proxyApi;
+switch (process.env.X_ENV) {
+  case 'dev':
+    proxyApi = ENV.api.dev;
+    break;
+  case 'pro':
+    proxyApi = ENV.api.pro;
+    break;
+  default:
+    proxyApi = ENV.api.pro;
+}
+
 export default defineConfig({
+  outputPath: './dist/www/',
+  publicPath: '/',
   favicon: '/public/images/favicon.png',
   title: '迷图网',
   metas: [
@@ -60,7 +74,7 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      target: ENV.api.test,
+      target: proxyApi,
       changeOrigin: true,
     },
   },

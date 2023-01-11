@@ -519,7 +519,7 @@ export default class FormInit extends PureComponent {
           <Modal
             width={700}
             title={modal.title}
-            visible={modal.visible}
+            open={modal.visible}
             centered={true}
             maskClosable={false}
             destroyOnClose={true}

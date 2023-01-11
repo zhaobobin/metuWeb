@@ -3,17 +3,13 @@
  * <PhotoListQuery />
  */
 import { useState, useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'umi';
 import { notification } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller'; //加载更多
-import { RootState } from '@/models/index';
 import LoadingBg from '@/components/common/loading-bg';
 import PhotoListGallery from '@/blocks/photo/photo-list-gallery';
 
-const mapStateToProps = (state: RootState) => ({});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {
+interface IProps {
   category: string;
   page?: number;
   per_page?: number;
@@ -36,6 +32,8 @@ interface IState {
 }
 
 const PhotoListQuery = (props: IProps) => {
+  const dispatch = useDispatch();
+
   let ajaxFlag: boolean = true;
   const initialState: IState = {
     category: '', // 分类
@@ -67,7 +65,7 @@ const PhotoListQuery = (props: IProps) => {
   const queryPhotoList = (query: any, clearList?: boolean) => {
     let list = clearList ? [] : state.list;
 
-    props.dispatch({
+    dispatch({
       type: 'photo/queryPhotoList',
       payload: query,
       callback: (res) => {
@@ -131,4 +129,4 @@ const PhotoListQuery = (props: IProps) => {
   );
 };
 
-export default connector(PhotoListQuery);
+export default PhotoListQuery;

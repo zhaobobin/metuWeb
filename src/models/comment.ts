@@ -2,7 +2,7 @@ import { Effect, Reducer } from 'umi';
 import { commentApi } from '@/api/index';
 // import { Toast } from '@/components/index';
 import { ICommentlist } from 'metu-ui/dist/types/CommentTypes';
-import { RootState } from './index';
+import { IRootState } from './index';
 
 export interface ICommentState {
   commentList: ICommentlist;
@@ -45,7 +45,7 @@ const commentModel: CommentModel = {
   effects: {
     *queryCommentList({ payload, callback }, { call, put, select }) {
       const { list, pageInfo } = yield select(
-        (state: RootState) => state.comment.commentList,
+        (state: IRootState) => state.comment.commentList,
       );
       let page = 1;
       if (payload && payload.loadMore) {
@@ -95,7 +95,7 @@ const commentModel: CommentModel = {
     },
     *favor({ payload }, { call, put, select }) {
       const { list, pageInfo } = yield select(
-        (state: RootState) => state.comment.commentList,
+        (state: IRootState) => state.comment.commentList,
       );
       const res = yield call(commentApi.favorComment, payload);
       if (res.code === 0) {

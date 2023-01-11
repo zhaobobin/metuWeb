@@ -1,88 +1,77 @@
 /**
  * 导航 - 搜索
  */
-import React, { ChangeEvent } from 'react';
-import { connect, ConnectProps, Dispatch } from 'umi';
-import { RootState } from '@/models/index';
-import { routerRedux } from 'dva/router';
+import { useState, ChangeEvent } from 'react';
+import { useDispatch } from 'umi';
+import { routerRedux } from 'dva';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import styles from './global-header-search.less';
-
-const { Search } = Input;
-
-interface IProps extends ConnectProps {
-  dispatch: Dispatch;
-}
 
 interface IState {
   show: boolean;
   value: string;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  account: state.account,
-  loading: state.loading.models.account,
-});
-const connector = connect(mapStateToProps);
-class GlobalHeaderSearch extends React.Component<IProps, IState> {
-  private value: string;
+const GlobalHeaderSearch = () => {
+  const dispatch = useDispatch();
 
-  constructor(props: IProps) {
-    super(props);
-    this.value = '';
-    this.state = {
-      show: false,
-      value: '',
-    };
-  }
+  const initialState: IState = {
+    show: false,
+    value: '',
+  };
 
-  show = () => {
-    this.setState({
+  const [state, setState] = useState(initialState);
+
+  const showInput = () => {
+    setState({
+      ...state,
       show: true,
     });
   };
 
-  hide = () => {
-    if (this.value) return;
-    this.setState({
+  const hideInput = () => {
+    if (state.value) return;
+    setState({
+      ...state,
       show: false,
     });
   };
 
-  onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    this.value = value.replace(/(^\s*)|(\s*$)/g, ''); // 去除两端空格
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/(^\s*)|(\s*$)/g, ''); // 去除两端空格
+    setState({
+      ...state,
+      value,
+    });
   };
 
-  onSearch = (value: string) => {
-    if (!this.value) return;
+  const onSearch = () => {
+    if (!state.value) {
+      return;
+    }
     // value = value.replace(/(^\s*)|(\s*$)/g, ""); // 去除两端空格
-    const keyword = encodeURIComponent(this.value);
-    this.props.dispatch(routerRedux.push(`/search?type=content&q=${keyword}`));
+    const keyword = encodeURIComponent(state.value);
+    dispatch(routerRedux.push(`/search?type=content&q=${keyword}`));
   };
 
-  render() {
-    const { show } = this.state;
+  return (
+    <div className={styles.search}>
+      {state.show ? (
+        <Input
+          autoFocus
+          placeholder="搜索"
+          suffix={<SearchOutlined onClick={onSearch} />}
+          onChange={onChange}
+          onBlur={hideInput}
+        />
+      ) : (
+        <span className={styles.icon} onClick={showInput}>
+          <SearchOutlined onClick={showInput} />
+        </span>
+      )}
+    </div>
+  );
+};
 
-    return (
-      <div className={styles.search}>
-        {show ? (
-          <Search
-            autoFocus
-            placeholder="搜索"
-            onChange={this.onChange}
-            onSearch={this.onSearch}
-            onBlur={this.hide}
-          />
-        ) : (
-          <span className={styles.icon}>
-            <SearchOutlined onClick={this.show} />
-          </span>
-        )}
-      </div>
-    );
-  }
-}
-
-export default connector(GlobalHeaderSearch);
+export default GlobalHeaderSearch;

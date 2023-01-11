@@ -4,11 +4,13 @@ import * as Icon from '@ant-design/icons';
 interface IProps {
   type: string;
   style?: React.CSSProperties;
+  theme?: string;
 }
 
 function CusIcon(props: IProps) {
   return React.createElement(Icon[props.type], {
     style: props.style,
+    theme: props.theme,
   });
 }
 

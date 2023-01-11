@@ -1,5 +1,5 @@
 import { Effect, Reducer } from 'umi';
-import { RootState } from './index';
+import { IRootState } from './index';
 import { messageApi } from '@/api/index';
 import { IMessage } from 'metu-ui/dist/types/MessageTypes';
 
@@ -38,7 +38,7 @@ const messageModel: MessageModel = {
   effects: {
     *queryMessageList({ payload, callback }, { call, put, select }) {
       const { list, pageInfo } = yield select(
-        (state: RootState) => state.message.messageList,
+        (state: IRootState) => state.message.messageList,
       );
       let page = 1;
       if (payload && payload.loadMore) {

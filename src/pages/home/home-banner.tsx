@@ -1,22 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'umi';
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from '@/models/index';
+import { Link, useSelector, useDispatch } from 'umi';
 import { Spin } from 'antd';
+import { IRootState } from '@/models/index';
 import styles from './home-banner.less';
-
-const mapStateToProps = (state: RootState) => ({
-  homeBanner: state.photo.homeBanner,
-});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {}
 
 interface IState {
   imgStyle: string;
 }
 
-const HomeBanner = (props: IProps) => {
+const HomeBanner = () => {
+  const dispatch = useDispatch();
+  const homeBanner = useSelector((state: IRootState) => state.photo.homeBanner);
+
   const initialState: IState = {
     imgStyle: '?x-oss-process=style/thumb_m',
   };
@@ -28,20 +23,22 @@ const HomeBanner = (props: IProps) => {
   }, []);
 
   const queryPhotoWel = () => {
-    props.dispatch({
+    dispatch({
       type: 'photo/queryHomeBanner',
     });
   };
 
   //加载优化、img下载完成后再渲染组件
   const onLoad = () => {
-    setState({
-      imgStyle: '?x-oss-process=style/cover',
-    });
+    setTimeout(() => {
+      setState({
+        imgStyle: '?x-oss-process=style/cover',
+      });
+    }, 500);
   };
 
   const { imgStyle } = state;
-  const data = props.homeBanner;
+  const data = homeBanner;
 
   const bgImg = data
     ? {
@@ -83,4 +80,4 @@ const HomeBanner = (props: IProps) => {
   );
 };
 
-export default connector(HomeBanner);
+export default HomeBanner;

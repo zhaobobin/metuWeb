@@ -1,30 +1,22 @@
-import { useIntl, Link, IAccountState } from 'umi';
-import { connect, ConnectedProps } from 'react-redux';
+import { useIntl, useSelector, useDispatch, Link } from 'umi';
 import { Avatar, Button, Menu, Dropdown } from 'antd';
-import { BellOutlined, CloudUploadOutlined } from '@ant-design/icons';
-import { RootState } from '@/models/index';
+import { CloudUploadOutlined } from '@ant-design/icons';
+import { IRootState } from '@/models/index';
 import styles from './global-header-sign.less';
 
-// import GlobalHeaderSearch from '@/components/common/global-header-search';
+import GlobalHeaderSearch from '@/components/common/global-header-search';
 // import MessagesPopover from '@/blocks/Messages/MessagesPopover';
 import UserSignModal from '@/blocks/user/user-sign-modal';
 import { Confirm } from '@/components/dialog/dialog';
 
-const mapStateToProps = (state: RootState) => ({
-  account: state.account,
-});
-const connector = connect(mapStateToProps);
-
-interface IProps extends ConnectedProps<typeof connector> {
-  account: IAccountState;
-}
-
-const GlobalHeaderSign = (props: IProps) => {
+const GlobalHeaderSign = () => {
   const intl = useIntl();
+  const dispatch = useDispatch();
+  const account = useSelector((state: IRootState) => state.account);
 
   // 切换登录注册modal状态
   const setUserModal = (visible: boolean, key: string) => {
-    props.dispatch({
+    dispatch({
       type: 'global/changeSignModal',
       payload: {
         signModalVisible: visible,
@@ -39,7 +31,7 @@ const GlobalHeaderSign = (props: IProps) => {
       title: '退出登录?',
       callback: (res) => {
         if (res === 1) {
-          props.dispatch({
+          dispatch({
             type: 'account/logout',
           });
         }
@@ -47,22 +39,24 @@ const GlobalHeaderSign = (props: IProps) => {
     });
   };
 
-  const { isAuth, currentUser } = props.account;
+  const { isAuth, currentUser } = account;
 
   return (
     <div className={styles.userAction}>
       {isAuth ? (
         <ul key="logout">
-          <li>{/* <GlobalHeaderSearch/> */}</li>
+          <li>
+            <GlobalHeaderSearch />
+          </li>
 
           {/* <MessagesPopover>
-                <li>
-                  <a className={styles.message}>
-                    <BellOutlined style={{ fontSize: '24px' }} />
-                    <BellOutlined className={styles.icon} style={{ fontSize: '24px' }} />
-                  </a>
-                </li>
-              </MessagesPopover> */}
+            <li>
+              <a className={styles.message}>
+                <BellOutlined style={{ fontSize: '24px' }} />
+                <BellOutlined className={styles.icon} style={{ fontSize: '24px' }} />
+              </a>
+            </li>
+          </MessagesPopover> */}
 
           <Dropdown
             overlay={
@@ -138,7 +132,9 @@ const GlobalHeaderSign = (props: IProps) => {
         </ul>
       ) : (
         <ul key="login">
-          <li className={styles.search}>{/* <GlobalHeaderSearch/> */}</li>
+          <li className={styles.search}>
+            <GlobalHeaderSearch />
+          </li>
 
           <li>
             <Button
@@ -166,4 +162,4 @@ const GlobalHeaderSign = (props: IProps) => {
   );
 };
 
-export default connector(GlobalHeaderSign);
+export default GlobalHeaderSign;

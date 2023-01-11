@@ -4,11 +4,9 @@
  * step [String]   Steps组件初始化
  */
 import React, { useState, useEffect } from 'react';
-import { history } from 'umi';
-import { connect, ConnectedProps } from 'react-redux';
+import { history, useDispatch } from 'umi';
 import { Row, Col, Form, Button, Steps, notification } from 'antd';
 import { Encrypt } from 'metu-ui/dist/utils/index';
-import { RootState } from '@/models/index';
 import styles from './psd-reset.less';
 
 import InputMobile from '@/components/form/input-mobile';
@@ -16,7 +14,6 @@ import InputPassword from '@/components/form/input-password';
 import InputSmscode from '@/components/form/input-smscode';
 
 const FormItem = Form.Item;
-const Step = Steps.Step;
 
 interface IStep {
   title: string;
@@ -46,14 +43,8 @@ const steps: IStep[] = [
   },
 ];
 
-const mapStateToProps = (state: RootState) => ({
-  global: state.global,
-  account: state.account,
-});
-const connector = connect(mapStateToProps);
-
 // type stepType = 'index' | 'smscode' | 'password' | 'finish';
-interface IProps extends ConnectedProps<typeof connector> {
+interface IProps {
   step: string;
   callback: () => void;
 }
@@ -67,6 +58,8 @@ interface IState {
 }
 
 const PsdReset = (props: IProps) => {
+  const dispatch = useDispatch();
+
   let ajaxFlag: boolean = true;
   let loading: boolean = false;
 
@@ -189,7 +182,7 @@ const PsdReset = (props: IProps) => {
   // step 1 - 检验手机号
   const next1 = () => {
     form.validateFields(['mobile']).then((values) => {
-      props.dispatch({
+      dispatch({
         type: 'account/checkMobile',
         payload: {
           mobile: values.mobile,
@@ -234,7 +227,7 @@ const PsdReset = (props: IProps) => {
     form
       .validateFields(['password', 'rpassword'])
       .then((values) => {
-        props.dispatch({
+        dispatch({
           type: 'account/resetPsd',
           payload: {
             mobile,
@@ -256,7 +249,7 @@ const PsdReset = (props: IProps) => {
           },
         });
       })
-      .catch((error) => {
+      .catch(() => {
         setTimeout(() => {
           loading = false;
           ajaxFlag = true;
@@ -376,11 +369,7 @@ const PsdReset = (props: IProps) => {
       ) : (
         <Form form={form} className={styles.form}>
           <div className={styles.title}>
-            <Steps current={current} labelPlacement="vertical">
-              {steps.map((item) => (
-                <Step key={item.key} title={item.title} />
-              ))}
-            </Steps>
+            <Steps current={current} labelPlacement="vertical" items={steps} />
           </div>
 
           <Row>
@@ -463,4 +452,4 @@ const PsdReset = (props: IProps) => {
   );
 };
 
-export default connector(PsdReset);
+export default PsdReset;
