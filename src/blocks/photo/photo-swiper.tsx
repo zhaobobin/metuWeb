@@ -16,7 +16,7 @@ import {
   DoubleRightOutlined,
 } from '@ant-design/icons';
 
-import styles from './PhotoSwiper.less';
+import styles from './photo-swiper.less';
 
 const screenfull = require('screenfull');
 

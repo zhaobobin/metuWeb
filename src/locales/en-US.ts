@@ -17,6 +17,7 @@ export default {
   'menu.community.discover.editor': 'Editor',
   'menu.community.discover.new': 'New',
   'menu.community.discover.graphic': 'Graphic',
+  'menu.community.discover.tag': 'Tag',
   'menu.community.author': 'Photographer',
   'menu.community.circle': 'Circle',
   'menu.community.circle.detail': 'Circle Detail',

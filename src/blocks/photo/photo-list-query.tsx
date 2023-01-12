@@ -35,6 +35,7 @@ const PhotoListQuery = (props: IProps) => {
   const dispatch = useDispatch();
 
   let ajaxFlag: boolean = true;
+
   const initialState: IState = {
     category: '', // 分类
     page: props.page || 1, // 当前页数
@@ -50,16 +51,14 @@ const PhotoListQuery = (props: IProps) => {
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
-    if (props.category !== state.category) {
-      queryPhotoList(
-        {
-          category: props.category || '',
-          page: 1,
-          per_page: state.per_page,
-        },
-        true,
-      );
-    }
+    queryPhotoList(
+      {
+        category: props.category || '',
+        page: 1,
+        per_page: state.per_page,
+      },
+      true,
+    );
   }, [props.category]);
 
   const queryPhotoList = (query: any, clearList?: boolean) => {

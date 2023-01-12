@@ -2,11 +2,12 @@
  * 设置 - 菜单
  */
 import React from 'react';
-import { NavLink } from 'umi';
+import { NavLink, useIntl } from 'umi';
 import { Drawer } from 'antd';
 import { CloseOutlined, MenuOutlined, RightOutlined } from '@ant-design/icons';
-import { FormattedMessage } from 'react-intl';
 import styles from './slide-drawer.less';
+
+const intl = useIntl();
 
 interface IProps {
   routes: any;
@@ -63,7 +64,7 @@ export default class SettingsSlideDrawer extends React.Component<
                   activeClassName={styles.active}
                   to={`/${routes.path}/${item.path}`}
                 >
-                  <FormattedMessage id={item.id} />
+                  <span>{intl.formatMessage({ id: item.id })}</span>
                   <RightOutlined />
                 </NavLink>
               </li>

@@ -33,17 +33,21 @@ const HomePhotoList = () => {
     {
       key: 'popular',
       label: '热门',
-      children: <PhotoListQuery {...queryOption} />,
+      children: state.category === 'popular' && (
+        <PhotoListQuery {...queryOption} />
+      ),
     },
     {
-      key: 'edit',
+      key: 'editor',
       label: '推荐',
-      children: <PhotoListQuery {...queryOption} />,
+      children: state.category === 'editor' && (
+        <PhotoListQuery {...queryOption} />
+      ),
     },
     {
       key: 'new',
       label: '最新',
-      children: <PhotoListQuery {...queryOption} />,
+      children: state.category === 'new' && <PhotoListQuery {...queryOption} />,
     },
   ];
 

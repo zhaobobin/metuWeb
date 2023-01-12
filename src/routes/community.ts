@@ -5,7 +5,7 @@ const CommunityRoutes = [
     title: 'menu.community',
     key: 'community',
     path: '/community',
-    component: '@/pages/community/index',
+    component: '@/pages/community/_layout',
   },
   {
     name: '发现',

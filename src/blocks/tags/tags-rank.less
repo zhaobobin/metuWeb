@@ -1,0 +1,35 @@
+@import '../../theme/index.less';
+
+.tagsList {
+  h3 {
+    margin: 0;
+    padding-left: 30px;
+    height: 18px;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: 0;
+      content: ' ';
+      width: 2px;
+      height: 18px;
+      background: @color_blue;
+    }
+  }
+
+  .list {
+    margin: 15px 30px;
+
+    a {
+      display: inline-block;
+      line-height: 2em;
+      padding: 0 5px;
+      color: #666;
+      &:hover {
+        color: @color_blue;
+      }
+    }
+  }
+}

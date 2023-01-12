@@ -16,6 +16,7 @@ export default {
   'menu.community.discover.editor': '推荐',
   'menu.community.discover.new': '最新',
   'menu.community.discover.graphic': '图文',
+  'menu.community.discover.tag': '标签',
   'menu.community.author': '摄影师',
   'menu.community.circle': '圈子',
   'menu.community.circle.detail': '圈子详情',
