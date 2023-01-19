@@ -10,7 +10,8 @@ import LoadingBg from '@/components/common/loading-bg';
 import PhotoListGallery from '@/blocks/photo/photo-list-gallery';
 
 interface IProps {
-  category: string;
+  url: string;
+  category?: string;
   page?: number;
   per_page?: number;
   maxQueryPage?: number;
@@ -52,6 +53,7 @@ const PhotoListQuery = (props: IProps) => {
 
   useEffect(() => {
     queryPhotoList(
+      props.url,
       {
         category: props.category || '',
         page: 1,
@@ -59,13 +61,15 @@ const PhotoListQuery = (props: IProps) => {
       },
       true,
     );
-  }, [props.category]);
+  }, [props.url, props.category]);
 
-  const queryPhotoList = (query: any, clearList?: boolean) => {
+  const queryPhotoList = (url: string, query: any, clearList?: boolean) => {
     let list = clearList ? [] : state.list;
 
     dispatch({
-      type: 'photo/queryPhotoList',
+      type: 'global/request',
+      url,
+      method: 'get',
       payload: query,
       callback: (res) => {
         setTimeout(() => {
@@ -101,7 +105,7 @@ const PhotoListQuery = (props: IProps) => {
     ajaxFlag = false;
 
     setTimeout(function () {
-      queryPhotoList({
+      queryPhotoList(props.url, {
         category,
         page: page + 1,
         per_page,

@@ -1,16 +1,68 @@
-import React from 'react';
+/**
+ * 账户 - 点赞
+ */
+import { useEffect, useState } from 'react';
+import { useSelector, history, useDispatch } from 'umi';
+import { Row, Col } from 'antd';
+import { IRootState } from '@/models';
 
-export default class AccountFavoring extends React.Component {
+const AccountFavoring = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(
+    (state: IRootState) => state.account.currentUser,
+  );
+  const userDetail = useSelector((state: IRootState) => state.user.userDetail);
 
-  render(){
+  let ajaxFlag = true;
 
-    return(
+  const initialState = {
+    loading: true,
+    list: '',
+    count: 0,
+  };
+  const [state, setState] = useState(initialState);
 
-      <div>
-        Account Favoring
-      </div>
+  useEffect(() => {
+    queryList(userDetail._id);
+  }, []);
 
-    )
-  }
+  const queryList = (_id: string) => {
+    if (!ajaxFlag) return;
+    ajaxFlag = false;
 
-}
+    dispatch({
+      type: 'global/request',
+      url: `/users/${_id}/favoring/photos`,
+      method: 'get',
+      payload: {},
+      callback: (res) => {
+        setTimeout(() => {
+          ajaxFlag = true;
+        }, 500);
+        if (res.code === 0) {
+          setState({
+            loading: false,
+            list: res.data.list,
+            count: res.data.count,
+          });
+        } else {
+          history.push('/404');
+        }
+      },
+    });
+  };
+
+  return (
+    <Row>
+      <Col xs={0} sm={0} md={4} lg={6} />
+
+      <Col xs={24} sm={24} md={16} lg={12}>
+        点赞
+      </Col>
+
+      <Col xs={0} sm={0} md={4} lg={6} />
+    </Row>
+  );
+};
+
+export default AccountFavoring;

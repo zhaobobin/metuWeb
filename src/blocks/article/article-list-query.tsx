@@ -17,12 +17,22 @@ interface IProps {
   callback?: (count: number) => void;
 }
 
+interface IState {
+  loading: boolean;
+  total: number;
+  list: any[];
+  url: string;
+  q: string; //筛选关键字
+  page: number; //当前页数
+  per_page: number;
+}
+
 const ArticleListQuery = (props: IProps) => {
   const dispatch = useDispatch();
 
   let ajaxFlag = true;
 
-  const initialState = {
+  const initialState: IState = {
     loading: true,
     total: 0,
     list: [],
@@ -98,11 +108,11 @@ const ArticleListQuery = (props: IProps) => {
   const { loading, list, total } = state;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.articleList}>
       <Skeleton active loading={loading}>
         {list.length > 0 ? (
-          list.map((item, index) => (
-            <ArticleListItem key={index} item={item} showEdit={showEdit} />
+          list.map((item) => (
+            <ArticleListItem key={item._id} item={item} showEdit={showEdit} />
           ))
         ) : (
           <div className={styles.empty}>

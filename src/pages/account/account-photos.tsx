@@ -1,16 +1,40 @@
-import React from 'react';
+/**
+ * 账户 - 图片
+ */
+import { useState } from 'react';
+import { useSelector } from 'umi';
+import { IRootState } from '@/models';
 
-export default class AccountPhotos extends React.Component {
+import PhotoListQuery from '@/blocks/photo/photo-list-query';
+import CusEmpty from '@/components/common/cus-empty';
 
-  render(){
+const AccountPhotos = () => {
+  const currentUser = useSelector(
+    (state: IRootState) => state.account.currentUser,
+  );
+  const userDetail = useSelector((state: IRootState) => state.user.userDetail);
 
-    return(
+  const [count, setCount] = useState(0);
 
-      <div>
-        Account Photos
-      </div>
+  const queryCallback = (count: number) => {
+    setCount(count);
+  };
 
-    )
-  }
+  const url = `/users/${userDetail._id}/photos`;
+  const showEdit = currentUser._id === userDetail._id;
 
-}
+  return (
+    <div>
+      <PhotoListQuery
+        url={url}
+        category=""
+        callback={queryCallback}
+        showEdit={showEdit}
+      />
+
+      {count === 0 ? <CusEmpty /> : null}
+    </div>
+  );
+};
+
+export default AccountPhotos;

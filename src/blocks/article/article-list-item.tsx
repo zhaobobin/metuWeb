@@ -4,14 +4,13 @@ import logo from '@/assets/logo2.png';
 import styles from './article-list-item.less';
 
 interface IProps {
-  key: string | number;
   item: any;
   showEdit?: boolean;
 }
 
-export default function ArticleListItem({ item, key, showEdit }: IProps) {
+export default function ArticleListItem({ item, showEdit }: IProps) {
   return (
-    <div key={key} className={styles.item}>
+    <div key={item._id} className={styles.articleItem}>
       <div className={styles.body}>
         <Link
           to={`/graphic/${item._id}/${item.title}-by-${item.author.nickname}`}

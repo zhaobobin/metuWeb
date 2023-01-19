@@ -1,12 +1,12 @@
 /**
- * 账户 - 关注
+ * 账户 - 粉丝
  */
 import { useEffect, useState } from 'react';
 import { useSelector, history, useDispatch } from 'umi';
 import { Row, Col } from 'antd';
 import { IRootState } from '@/models';
 
-const AccountFollowing = () => {
+const AccountFollowers = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(
     (state: IRootState) => state.account.currentUser,
@@ -32,7 +32,7 @@ const AccountFollowing = () => {
 
     dispatch({
       type: 'global/request',
-      url: `/users/${_id}/following`,
+      url: `/users/${_id}/followers`,
       method: 'get',
       payload: {},
       callback: (res) => {
@@ -57,7 +57,7 @@ const AccountFollowing = () => {
       <Col xs={0} sm={0} md={4} lg={6} />
 
       <Col xs={24} sm={24} md={16} lg={12}>
-        关注
+        粉丝
       </Col>
 
       <Col xs={0} sm={0} md={4} lg={6} />
@@ -65,4 +65,4 @@ const AccountFollowing = () => {
   );
 };
 
-export default AccountFollowing;
+export default AccountFollowers;

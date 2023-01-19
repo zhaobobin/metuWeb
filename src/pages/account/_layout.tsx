@@ -71,6 +71,10 @@ export default function _layout(props) {
     );
   }
 
+  if (!userDetail._id) {
+    return null;
+  }
+
   return (
     <div className={styles.accountLayout}>
       <AccountHeaderCover />
