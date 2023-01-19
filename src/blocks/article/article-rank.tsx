@@ -59,7 +59,7 @@ const ArticleRank = (props: IProps) => {
     dispatch({
       type: 'global/request',
       url: '/api/ArticleRank',
-      method: 'POST',
+      method: 'post',
       payload: params,
       callback: (res) => {
         ajaxFlag = true;

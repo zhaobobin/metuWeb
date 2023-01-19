@@ -2,8 +2,7 @@
  * 导航 - 搜索
  */
 import { useState, ChangeEvent } from 'react';
-import { useDispatch } from 'umi';
-import { routerRedux } from 'dva';
+import { history } from 'umi';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import styles from './global-header-search.less';
@@ -14,8 +13,6 @@ interface IState {
 }
 
 const GlobalHeaderSearch = () => {
-  const dispatch = useDispatch();
-
   const initialState: IState = {
     show: false,
     value: '',
@@ -52,7 +49,7 @@ const GlobalHeaderSearch = () => {
     }
     // value = value.replace(/(^\s*)|(\s*$)/g, ""); // 去除两端空格
     const keyword = encodeURIComponent(state.value);
-    dispatch(routerRedux.push(`/search?type=content&q=${keyword}`));
+    history.push(`/search?type=content&q=${keyword}`);
   };
 
   return (

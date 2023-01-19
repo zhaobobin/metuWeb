@@ -64,6 +64,13 @@ export const userApi = {
     });
   },
 
+  getProfileDetail: (params: { username: string }) => {
+    return Request({
+      url: `/users/${params.username}`,
+      method: 'get',
+    });
+  },
+
   updateAvatar: (params: { url: string }) => {
     return Request({
       url: '/user/avatar',

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'umi';
 import { IRootState } from '@/models/index';
 import { Row, Col, Spin } from 'antd';
@@ -45,7 +45,6 @@ const PhotoSwiper = (props: IProps) => {
   const document: any = window.document;
   let scrollFlag: boolean = false;
 
-  const refMap = useRef([]);
   const dispatch = useDispatch();
   const global = useSelector((state: IRootState) => state.global);
 
@@ -82,7 +81,7 @@ const PhotoSwiper = (props: IProps) => {
     };
 
     //监控全屏切换
-    if (screenfull.enabled) {
+    if (screenfull.isEnabled) {
       document.addEventListener(screenfull.raw.fullscreenchange, function () {
         setState({
           ...state,
@@ -201,9 +200,8 @@ const PhotoSwiper = (props: IProps) => {
 
   //全屏切换
   const onChangeFullscreen = () => {
-    if (screenfull.enabled) {
-      const screenFull = refMap?.current['screenFull'];
-      screenfull.toggle(screenFull);
+    if (screenfull.isEnabled) {
+      screenfull.toggle();
     }
   };
 
@@ -250,7 +248,7 @@ const PhotoSwiper = (props: IProps) => {
       : null;
 
   return (
-    <div className={swiperClass + ' ' + styles[props.theme]} ref="screenFull">
+    <div className={swiperClass + ' ' + styles[props.theme]}>
       <Row className={styles.swiperHeader}>
         <Col span={2}>
           <a
@@ -265,7 +263,7 @@ const PhotoSwiper = (props: IProps) => {
           </a>
         </Col>
         <Col span={20}>
-          <span>
+          <span className={styles.count}>
             {state.currentIndex}/{state.photoTotal}
           </span>
         </Col>

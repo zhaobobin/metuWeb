@@ -8,7 +8,6 @@ import { IRootState } from './index';
 export interface IAccountState {
   isAuth: boolean; // 登录状态
   currentUser: IUserInfo; // 当前用户信息
-  profileUser: IUserInfo; // 其他用户信息
 }
 
 interface UserModel {
@@ -38,21 +37,6 @@ interface UserModel {
 const initialState = {
   isAuth: false,
   currentUser: {
-    _id: '',
-    type: '',
-    level: 0,
-    point: 0,
-    status: 0,
-    tags: [],
-    following_number: 0,
-    followers_number: 0,
-    mobile: '',
-    nickname: '',
-    username: '',
-    create_at: '',
-    update_at: '',
-  },
-  profileUser: {
     _id: '',
     type: '',
     level: 0,

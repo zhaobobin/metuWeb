@@ -82,7 +82,7 @@ const photoModel: PhotoModel = {
         callback(res);
       }
     },
-    *queryPhotoDetail({ payload }, { call, put }) {
+    *queryPhotoDetail({ payload, callback }, { call, put }) {
       const res = yield call(photoApi.getPhotoDetail, payload);
       if (res.code === 0) {
         yield put({
@@ -91,6 +91,7 @@ const photoModel: PhotoModel = {
             photoDetail: res.data,
           },
         });
+        callback && callback(res);
       } else {
         // Toast.info(res.message, 2);
       }

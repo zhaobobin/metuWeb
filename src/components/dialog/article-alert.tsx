@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal } from 'antd';
 import styles from './article-alert.less';
 
@@ -8,10 +8,6 @@ const ArticleAlert = (props) => {
   };
 
   const [state, setState] = useState(initialState);
-
-  useEffect(() => {
-    props.Refs = this;
-  }, []);
 
   // const show = () => {
   //   setState({

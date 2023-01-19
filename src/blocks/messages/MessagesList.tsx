@@ -46,7 +46,7 @@ const MessageList = (props: IProps) => {
     dispatch({
       type: 'account/request',
       url: `/messages?type=${type}`,
-      method: 'GET',
+      method: 'get',
       payload: {},
       callback: (res) => {
         setTimeout(() => {

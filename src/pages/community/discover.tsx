@@ -32,13 +32,13 @@ const Discover = () => {
   const tab = params.t || 'popular';
 
   const menus = [
-    { key: 'popular', id: 'menu.community.discover.popular', label: '热门' },
-    { key: 'editor', id: 'menu.community.discover.editor', label: '推荐' },
-    { key: 'new', id: 'menu.community.discover.new', label: '新作' },
-    { key: 'graphic', id: 'menu.community.discover.graphic', label: '图文' },
-    // { key: "set", id: "menu.community.discover.set", label: "影集" },
-    // { key: "story", id: "menu.community.discover.story", label: "专栏" },
-    { key: 'tag', id: 'menu.community.discover.tag', label: '标签' },
+    { key: 'popular', id: 'menu.community.discover.popular', name: '热门' },
+    { key: 'editor', id: 'menu.community.discover.editor', name: '推荐' },
+    { key: 'new', id: 'menu.community.discover.new', name: '新作' },
+    // { key: 'graphic', id: 'menu.community.discover.graphic', name: '图文' },
+    // { key: "set", id: "menu.community.discover.set", name: "影集" },
+    // { key: "story", id: "menu.community.discover.story", name: "专栏" },
+    { key: 'tag', id: 'menu.community.discover.tag', name: '标签' },
   ];
 
   return (

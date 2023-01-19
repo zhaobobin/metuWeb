@@ -13,7 +13,7 @@ function headerIsOpacity(pathname) {
 }
 
 interface IProps {
-  navData: any[];
+  navData?: any[];
   pathname: string;
 }
 

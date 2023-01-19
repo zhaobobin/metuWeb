@@ -1,6 +1,6 @@
 import { useIntl, useSelector, useDispatch, Link } from 'umi';
-import { Avatar, Button, Menu, Dropdown } from 'antd';
-import { CloudUploadOutlined } from '@ant-design/icons';
+import { Avatar, Button, Dropdown } from 'antd';
+import { CloudUploadOutlined, UserOutlined } from '@ant-design/icons';
 import { IRootState } from '@/models/index';
 import styles from './global-header-sign.less';
 
@@ -41,6 +41,50 @@ const GlobalHeaderSign = () => {
 
   const { isAuth, currentUser } = account;
 
+  const publishMenus = [
+    {
+      key: '1',
+      label: (
+        <Link to="/publish/photo">
+          {intl.formatMessage({ id: 'menu.publish.photo' })}
+        </Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link to="/publish/article">
+          {intl.formatMessage({ id: 'menu.publish.article' })}
+        </Link>
+      ),
+    },
+  ];
+
+  const accountMenus = [
+    {
+      key: '1',
+      label: (
+        <Link to={`/users/${currentUser.username}`}>
+          {intl.formatMessage({ id: 'menu.user.account' })}
+        </Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link to="/settings">
+          {intl.formatMessage({ id: 'menu.user.settings' })}
+        </Link>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <a onClick={logout}>{intl.formatMessage({ id: 'menu.user.logout' })}</a>
+      ),
+    },
+  ];
+
   return (
     <div className={styles.userAction}>
       {isAuth ? (
@@ -58,22 +102,7 @@ const GlobalHeaderSign = () => {
             </li>
           </MessagesPopover> */}
 
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item>
-                  <Link to="/publish/photo">
-                    {intl.formatMessage({ id: 'menu.publish.photo' })}
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <Link to="/publish/article">
-                    {intl.formatMessage({ id: 'menu.publish.article' })}
-                  </Link>
-                </Menu.Item>
-              </Menu>
-            }
-          >
+          <Dropdown menu={{ items: publishMenus }}>
             <li>
               <Link
                 to="/publish/photo"
@@ -88,27 +117,7 @@ const GlobalHeaderSign = () => {
             </li>
           </Dropdown>
 
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item>
-                  <Link to={`/users/${currentUser.username}`}>
-                    {intl.formatMessage({ id: 'menu.user.account' })}
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <Link to="/settings">
-                    {intl.formatMessage({ id: 'menu.user.settings' })}
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <a onClick={logout}>
-                    {intl.formatMessage({ id: 'menu.user.logout' })}
-                  </a>
-                </Menu.Item>
-              </Menu>
-            }
-          >
+          <Dropdown menu={{ items: accountMenus }}>
             <li>
               <Link
                 to={`/users/${currentUser.username}`}
@@ -123,7 +132,11 @@ const GlobalHeaderSign = () => {
                     size={24}
                   />
                 ) : (
-                  <Avatar className={styles.avatar} icon="user" size={24} />
+                  <Avatar
+                    className={styles.avatar}
+                    icon={<UserOutlined />}
+                    size={24}
+                  />
                 )}
                 <span className={styles.username}>{currentUser.nickname}</span>
               </Link>

@@ -1,15 +1,16 @@
 /**
  * UserinfoPopover
  */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch, Link } from 'umi';
 import { Popover, Skeleton, Avatar, Button } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import { Toast } from '@/components';
 import { TooltipPlacement } from 'antd/lib/tooltip';
 import { IRootState } from '@/models/index';
 import styles from './userinfo-popover.less';
 
-import SignAuth from '@/blocks/auth/sign-auth';
+import SignAuth, { SignAuthRef } from '@/blocks/auth/sign-auth';
 
 interface IProps {
   id: string;
@@ -30,7 +31,7 @@ const UserinfoPopover = (props: IProps) => {
   );
 
   let ajaxFlag: boolean = true;
-  let signAuth: any;
+  let signAuthRef = useRef<SignAuthRef>();
 
   const initialState: IState = {
     loading: true,
@@ -40,31 +41,29 @@ const UserinfoPopover = (props: IProps) => {
 
   const [state, setState] = useState(initialState);
 
-  const queryUserinfo = (userId) => {
+  const queryUserinfo = (userId: string) => {
     if (!ajaxFlag) return;
     ajaxFlag = false;
 
     dispatch({
-      type: 'global/request',
-      url: `/users/${userId}`,
-      method: 'GET',
-      payload: {},
+      type: 'user/queryUserDetail',
+      payload: {
+        id: userId,
+      },
       callback: (res) => {
+        setState({
+          loading: false,
+          userInfo: res.data,
+          following_state: res.data.following_state || '',
+        });
         setTimeout(() => {
           ajaxFlag = true;
         }, 1000);
-        if (res.code === 0) {
-          setState({
-            loading: false,
-            userInfo: res.data,
-            following_state: res.data.following_state || '',
-          });
-        }
       },
     });
   };
 
-  const onVisibleChange = (visible) => {
+  const onVisibleChange = (visible: boolean) => {
     if (visible) {
       queryUserinfo(props.id);
     }
@@ -72,7 +71,9 @@ const UserinfoPopover = (props: IProps) => {
 
   // 检查权限：未登录、本人
   const checkAuth = () => {
-    if (!signAuth.check()) return false;
+    if (!signAuthRef.current?.check()) {
+      return false;
+    }
     const { userInfo } = state;
     return userInfo._id !== currentUser._id;
   };
@@ -116,47 +117,47 @@ const UserinfoPopover = (props: IProps) => {
           <div
             className={styles.cover}
             style={{
-              backgroundImage: userInfo.cover_url,
+              backgroundImage: userInfo?.cover_url,
             }}
           />
 
           <div className={styles.avatar}>
-            <Link to={`/users/${userInfo.username}`}>
-              {userInfo.avatar_url ? (
+            <Link to={`/users/${userInfo?.username}`}>
+              {userInfo?.avatar_url ? (
                 <Avatar
                   src={userInfo.avatar_url + '?x-oss-process=style/thumb_s'}
                   size={84}
                 />
               ) : (
-                <Avatar icon="user" size={84} />
+                <Avatar icon={<UserOutlined />} size={84} />
               )}
             </Link>
           </div>
 
           <div className={styles.name}>
-            <span>{userInfo.nickname}</span>
+            <span>{userInfo?.nickname}</span>
           </div>
 
           <div className={styles.info}>
             <p>
-              <span>关注 {userInfo.following_number}</span>
-              <span>粉丝 {userInfo.followers_number}</span>
-              <span>{userInfo.city ? userInfo.city.name : '中国'}</span>
+              <span>关注 {userInfo?.following_number}</span>
+              <span>粉丝 {userInfo?.followers_number}</span>
+              <span>{userInfo?.city ? userInfo.city.name : '中国'}</span>
             </p>
             <p>
-              <span>{userInfo.headline || ''}</span>
+              <span>{userInfo?.headline || ''}</span>
             </p>
           </div>
 
           <div className={styles.action}>
-            {userInfo._id === currentUser._id ? null : (
+            {userInfo?._id === currentUser._id ? null : (
               <Button type="primary" onClick={following}>
                 <span>{following_state ? '已关注' : '关注'}</span>
               </Button>
             )}
           </div>
 
-          <SignAuth onRef={(ref) => (signAuth = ref)} />
+          <SignAuth ref={signAuthRef} />
         </div>
       </Skeleton>
     </div>
@@ -169,7 +170,7 @@ const UserinfoPopover = (props: IProps) => {
       content={content}
       arrowPointAtCenter
       onOpenChange={onVisibleChange}
-      overlayStyle={{ padding: 0 }}
+      overlayStyle={{ padding: 0, overflow: 'hidden' }}
     >
       {props.children}
     </Popover>

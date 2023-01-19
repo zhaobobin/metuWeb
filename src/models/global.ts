@@ -29,7 +29,7 @@ const initialState = {
   signModalVisible: false, //登录modal的显示状态
   signTabKey: '', //登录modal中tab的默认key
   theme: Storage.get(ENV.storage.theme) || {}, // 主题
-  readModel: Storage.get(ENV.storage.lastTel) || '', // 阅读模式
+  readModel: Storage.get(ENV.storage.readModel) || 'black', // 阅读模式
 };
 
 const globalModel: GlobalModel = {
@@ -39,16 +39,17 @@ const globalModel: GlobalModel = {
 
   effects: {
     *request({ url, method, payload, callback }, { call, put }) {
-      let res,
-        exp = payload.exp,
-        storage = Storage.get(url);
+      let res: any;
+      const exp = payload.exp;
+      const storage = Storage.get(url);
 
       if (exp && storage) {
         res = storage;
       } else {
-        res = yield call((params) => {
-          return Request({ url, method: method || 'POST', body: params });
-        }, payload);
+        res = yield call(
+          (params: any) => Request({ url, method: method || 'post', params }),
+          payload,
+        );
         if (res.code === 0 && exp) Storage.set(url, res);
       }
 

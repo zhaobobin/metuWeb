@@ -37,7 +37,7 @@ const TagsRank = (props: IProps) => {
     dispatch({
       type: 'global/request',
       url: '/api/TagsRank',
-      method: 'POST',
+      method: 'post',
       payload: params,
       callback: (res) => {
         ajaxFlag = true;

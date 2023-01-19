@@ -12,12 +12,16 @@
       margin: 0 10px;
       opacity: 0.6;
       transition: all 0.3s;
-      font-size: 24px;
     }
-    span {
+    .count {
       font-size: 16px;
       letter-spacing: 8px;
       opacity: 0.6;
+    }
+    :global {
+      .anticon {
+        font-size: 22px;
+      }
     }
   }
 
@@ -35,14 +39,16 @@
       right: 0;
       bottom: 110px;
       a {
-        i {
-          font-size: 36px;
-          margin-left: -18px;
-          margin-top: -18px;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          text-shadow: 0 1px 2px #000;
+        :global {
+          .anticon {
+            font-size: 32px;
+            margin-left: -18px;
+            margin-top: -18px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            text-shadow: 0 1px 2px #000;
+          }
         }
 
         &.mask {
@@ -52,7 +58,7 @@
           right: 0;
           bottom: 0;
           z-index: 1;
-          cursor: url('../../assets/zoom.cur'), move;
+          cursor: url('../../assets/zoom.ico'), move;
         }
         &.arrow {
           display: block;
@@ -177,7 +183,7 @@
   }
 
   &.fullscreen .scene a.mask {
-    cursor: url('../../assets/zoomout.cur'), pointer;
+    cursor: url('../../assets/zoomout.ico'), pointer;
   }
 
   // theme

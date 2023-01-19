@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch, Link } from 'umi';
 import { UserOutlined, EyeOutlined } from '@ant-design/icons';
 import { IRootState } from '@/models/index';
@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import styles from './article-author-info.less';
 
 import { Toast } from '@/components';
-import SignAuth from '@/blocks/auth/sign-auth';
+import SignAuth, { SignAuthRef } from '@/blocks/auth/sign-auth';
 import UserinfoPopover from '@/blocks/user/userinfo-popover';
 
 const ArticleAuthorInfo = (props) => {
@@ -16,7 +16,7 @@ const ArticleAuthorInfo = (props) => {
   );
 
   let ajaxFlag: boolean = true;
-  let signAuth: any;
+  let signAuthRef = useRef<SignAuthRef>();
 
   const initialState = {
     loading: true,
@@ -35,7 +35,9 @@ const ArticleAuthorInfo = (props) => {
 
   // 检查权限：未登录、本人
   const checkAuth = () => {
-    if (!signAuth.check()) return false;
+    if (!signAuthRef.current?.check()) {
+      return false;
+    }
     const { detail } = props;
     return detail.author._id !== currentUser._id;
   };
@@ -112,7 +114,7 @@ const ArticleAuthorInfo = (props) => {
             </a>
           )}
 
-          <SignAuth onRef={(ref) => (signAuth = ref)} />
+          <SignAuth ref={signAuthRef} />
         </div>
       )}
     </>

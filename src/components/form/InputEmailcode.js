@@ -160,7 +160,7 @@ export default class InputEmailcode extends React.Component {
     this.props.dispatch({
       type: 'global/request',
       url: '/user/emailcode',
-      method: 'POST',
+      method: 'post',
       payload: {
         type,
         email,

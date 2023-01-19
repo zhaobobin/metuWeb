@@ -20,20 +20,35 @@ import SettingsRoutes from './settings';
 import MessagesRoutes from './messages';
 import UserRoutes from './user';
 
+export interface IRoute {
+  name?: string;
+  title?: string;
+  key?: string;
+  path?: string;
+  exact?: boolean;
+  menuShow?: boolean;
+  isHide?: boolean;
+  redirect?: string;
+  component?: string;
+  routes?: IRoute[];
+}
+
 // nav data
-export default [
-  {
-    exact: false,
-    path: '/',
-    component: '@/layouts/index',
-    routes: [
-      ...BaseRoutes,
-      ...CommunityRoutes,
-      ...AccountRoutes,
-      ...SettingsRoutes,
-      ...MessagesRoutes,
-      ...UserRoutes,
-      { component: '@/pages/other/404' },
-    ],
-  },
-];
+const navData: IRoute = {
+  name: 'root',
+  title: 'root',
+  key: 'root',
+  path: '/',
+  component: '@/layouts/index',
+  routes: [
+    ...BaseRoutes,
+    ...CommunityRoutes,
+    ...AccountRoutes,
+    ...SettingsRoutes,
+    ...MessagesRoutes,
+    ...UserRoutes,
+    { component: '@/pages/other/404' },
+  ],
+};
+
+export default navData;

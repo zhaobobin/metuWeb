@@ -1,5 +1,5 @@
 import { defineConfig } from 'umi';
-import routes from './src/routes/index';
+import navData from './src/routes/index';
 import theme from './src/theme/theme';
 import ENV from './src/config/env';
 
@@ -47,7 +47,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: routes,
+  routes: [navData],
   theme: theme,
   fastRefresh: {},
   dynamicImport: {
@@ -71,6 +71,13 @@ export default defineConfig({
     title: true,
     baseNavigator: true,
     baseSeparator: '-',
+  },
+  externals: {
+    BMap: 'BMap',
+    BMapLib: 'BMapLib',
+    g2: 'G2',
+    'g-cloud': 'Cloud',
+    'g2-plugin-slider': 'G2.Plugin.slider',
   },
   proxy: {
     '/api': {

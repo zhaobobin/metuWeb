@@ -37,6 +37,11 @@ interface IState {
   smscodeSended: boolean;
 }
 
+interface IValues {
+  mobile: string;
+  password: string;
+}
+
 const UserLogin = (props: IProps) => {
   const dispatch = useDispatch();
   const global = useSelector((state: IRootState) => state.global);
@@ -187,7 +192,7 @@ const UserLogin = (props: IProps) => {
   };
 
   //确定
-  const onFinish = (values) => {
+  const onFinish = (values: IValues) => {
     if (!ajaxFlag) return;
     ajaxFlag = false;
 
@@ -214,10 +219,10 @@ const UserLogin = (props: IProps) => {
       .catch((error) => {});
   };
 
-  const onFinishFailed = (values) => {};
+  const onFinishFailed = () => {};
 
   //登录
-  const login = (values) => {
+  const login = (values: IValues) => {
     dispatch({
       type: 'account/login',
       payload: values,

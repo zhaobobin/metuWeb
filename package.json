@@ -30,7 +30,9 @@
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
     "metu-ui": "^0.1.1",
+    "qrcode.react": "^3.1.0",
     "react": "17.x",
+    "react-cropper": "^2.1.8",
     "react-dom": "17.x",
     "react-grid-layout": "^1.2.5",
     "react-infinite-scroller": "^1.2.4",
@@ -39,6 +41,7 @@
     "react-measure": "^2.5.2",
     "react-photo-gallery": "6.1.4",
     "screenfull": "^5.1.0",
+    "share-react": "^1.0.0",
     "umi": "^3.5.13",
     "wxlogin.react": "^0.1.0"
   },

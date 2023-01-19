@@ -1,0 +1,39 @@
+@import '../../theme/index.less';
+
+.CusShare {
+  margin: 0;
+  height: 26px;
+
+  li {
+    display: inline-block;
+    width: 33.33%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+
+    .ma {
+      display: none;
+      width: 106px;
+      height: 106px;
+      padding: 3px;
+      background: #fff;
+      box-shadow: @box_shadow;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      z-index: 9;
+    }
+    &.weichat:hover .ma {
+      display: block;
+    }
+  }
+
+  .weixin {
+  }
+
+  .qq {
+  }
+
+  .weibo {
+  }
+}

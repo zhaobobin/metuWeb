@@ -1,0 +1,150 @@
+.photoInfo {
+  &.white {
+    border-top: 1px solid #f1f1f1;
+    .frame {
+      color: #555;
+      .title {
+        h1 {
+          color: #555;
+        }
+        p {
+          .tagItem {
+            color: #555;
+          }
+        }
+      }
+      .section {
+        border-bottom: 1px solid #f1f1f1;
+      }
+    }
+    .exifDetail {
+      background: #fff;
+    }
+  }
+  &.black {
+    border-top: 1px solid #1c1d1e;
+    .frame {
+      color: #fff;
+      .title {
+        h1 {
+          color: #fff;
+        }
+        p {
+          .tagItem {
+            color: #fff;
+          }
+        }
+      }
+      .section {
+        border-bottom: 1px solid #1c1d1e;
+      }
+    }
+    .exifDetail {
+      background: #000;
+    }
+  }
+
+  .frame {
+    .section {
+      padding: 15px;
+      position: relative;
+    }
+    .author {
+    }
+    .title {
+      h1 {
+        line-height: 2em;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      p {
+        margin-top: 10px;
+        line-height: 1.7em;
+        font-size: 14px;
+        word-break: break-all;
+
+        &.tagList {
+          margin-bottom: 0;
+        }
+        .tagItem {
+          display: inline-block;
+          margin: 0 10px 0 0;
+          &:before {
+            content: '# ';
+          }
+        }
+      }
+    }
+    .exif {
+      min-height: 143px;
+      ul {
+        margin: 0;
+      }
+      li {
+        font-size: 14px;
+        line-height: 2em;
+        color: #999;
+        text-align: center;
+        &.camera a {
+          font-size: 16px;
+          color: #108ee9;
+        }
+        &.lens a {
+          color: #999;
+        }
+        span {
+          margin-right: 5px;
+        }
+      }
+      a {
+        color: #333;
+        &:hover {
+          color: #108ee9;
+        }
+      }
+    }
+
+    .comment {
+      padding: 15px;
+    }
+  }
+
+  .exifDetail {
+    display: none;
+    padding: 15px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    overflow-y: auto;
+    &.show {
+      display: block;
+    }
+    p {
+      margin: 0;
+      line-height: 1.8em;
+      font-size: 12px;
+      overflow: hidden;
+      label {
+        float: left;
+        color: #999;
+      }
+      span {
+        float: right;
+        color: #666;
+      }
+      strong {
+        font-size: 14px;
+      }
+    }
+    a {
+      color: #333;
+      font-size: 14px;
+      &:hover {
+        color: #108ee9;
+      }
+    }
+  }
+}

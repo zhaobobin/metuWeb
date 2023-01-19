@@ -49,7 +49,7 @@ const ArticleListQuery = (props: IProps) => {
     dispatch({
       type: 'global/request',
       url,
-      method: 'GET',
+      method: 'get',
       payload: query,
       callback: (res) => {
         setTimeout(() => {
